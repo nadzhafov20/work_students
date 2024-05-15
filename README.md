@@ -51,6 +51,8 @@ A freelance platform tailored for students.
 
 4. If the `db.sqlite` database is missing, perform the following steps:
 
+    Go to `templates` where the `manage.py` file is located and enter:
+
     For Windows
     ```bash
     python manage.py makemigrations
