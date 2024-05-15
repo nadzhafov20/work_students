@@ -81,6 +81,8 @@ A freelance platform tailored for students.
 
 5. Start the local server by running the command:
 
+    Go to `templates` where the `manage.py` file is located and enter:
+
     For Windows
     ```bash
     python manage.py runserver
