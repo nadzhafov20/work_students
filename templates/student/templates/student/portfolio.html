@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <section class="calendar">
+        <div class="container">
+            <div class="calendar__inner image-upload">
+                <div class="start">
+                    <button class="portfolio-btn btn-reset">
+                        <h2 class="portfolio-title">Portfolio</h2>
+                        <img src="{% static 'img/plus.svg' %}" alt="">
+                    </button>
+
+                    <div class="image-upload image-box">
+                        <img src="{% static 'img/wind.svg' %}" alt="">
+
+                        <p class="image-upload-subtitle">Showcase your work to win more projects</p>
+                        <p class="image-upload-subtitle">Add items to impress clients</p>
+                    </div>
+                    
+                </div>
+                <div class="end">
+                    <button class="btn-reset btn-calendar">Continue</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="wrapper-bg"></div>
+
+
+<style>
+    .img-box-a{
+        background-color: red;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 100%;
+    }
+    .img-box-a img{
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const portfolioBtn = document.querySelector(".portfolio-btn");
+        let selectedFile = null; // Переменная для хранения выбранного файла
+
+        portfolioBtn.addEventListener("click", function() {
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = "image/*";
+
+            fileInput.addEventListener("change", function() {
+                selectedFile = fileInput.files[0]; // Сохраняем выбранный файл
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.alt = "Uploaded Image";
+
+                    const imgBox = document.createElement("div");
+                    imgBox.classList.add("img-box-a");
+                    imgBox.appendChild(img);
+
+                    const container = document.querySelector(".image-box");
+                    container.innerHTML = "";
+                    container.appendChild(imgBox);
+                };
+                reader.readAsDataURL(selectedFile); // Читаем файл как Data URL
+            });
+
+            fileInput.click();
+        });
+
+        const continueBtn = document.querySelector(".btn-calendar");
+
+        continueBtn.addEventListener("click", function() {
+            if (selectedFile) { // Проверяем, был ли выбран файл
+                const title = ""; 
+                const description = "";
+                const formData = new FormData();
+                formData.append("title", title);
+                formData.append("description", description);
+                formData.append("image", selectedFile); // Отправляем выбранный файл
+
+                const csrftoken = getCookie('csrftoken');
+
+                fetch("/student/portfolio", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": csrftoken
+                    },
+                    body: formData,
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Data submitted successfully!");
+                        window.location.href = '/student/my/';
+                    } else {
+                        console.error("Error submitting data!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            } else {
+                console.error("No image uploaded!");
+            }
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
+
+
+{% endblock %}

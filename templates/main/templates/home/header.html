@@ -1,0 +1,105 @@
+{% load static %}
+
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="start">
+                
+                <a href="/" class="header__logo">
+                    <img src="{% static 'img/logo.png' %}" width="89" height="89" alt="logo">
+                </a>
+
+                {% if user.is_authenticated and user.email_verified %}
+                    {% if user.role == 'student' %}
+                        <ul class="header__dropdown">
+                            <a href="{% url 'student_my_jobs' %}">
+                                <li class="header__dropdown-item header__dropdown--active">My jobs</li>
+                            </a>
+                        </ul>
+                    {% elif user.role == 'client' %}
+                        <ul class="header__dropdown">
+                            <li class="header__dropdown-item header__dropdown--active">Find Student</li>
+                            <ul class="header__dropdown_list">
+                                <li class="header__dropdown_list-item">Find Student</li>
+                                <li class="header__dropdown_list-item">Find Student</li>
+                                <li class="header__dropdown_list-item">Find Student</li>
+                            </ul>
+                        </ul>
+                        <ul class="header__dropdown">
+                            <a href="{% url 'client_my_offers' %}"> 
+                                <li class="header__dropdown-item header__dropdown--active">My offers</li>
+                            </a>
+                        </ul>
+                    {% endif %}
+                {% else %}
+                    <ul class="header__dropdown">
+                        <li class="header__dropdown-item header__dropdown--active">Find Student</li>
+                        <ul class="header__dropdown_list">
+                            <li class="header__dropdown_list-item">Find Student</li>
+                            <li class="header__dropdown_list-item">Find Student</li>
+                            <li class="header__dropdown_list-item">Find Student</li>
+                        </ul>
+                    </ul>
+                {% endif %}
+
+                <ul class="header__dropdown">
+                    <li class="header__dropdown-item header__dropdown--active">Finde Work</li>
+                    <ul class="header__dropdown_list">
+                        <li class="header__dropdown_list-item">Find Student</li>
+                        <li class="header__dropdown_list-item">Find Student</li>
+                        <li class="header__dropdown_list-item">Find Student</li>
+                    </ul>
+                </ul>
+            </div>
+
+            <div class="end">
+                {% if user.is_authenticated and user.email_verified %}
+                    <ul class="header__action">
+                        <li class="header__action-item">
+                            <a href="#!" class="header__action-link">
+                                <img src="{% static 'img/ic-1.svg' %}" alt="">
+                            </a>
+                        </li>
+                        <li class="header__action-item">
+                            <a href="#!" class="header__action-link">
+                                <img src="{% static 'img/ic-2.svg' %}" alt="">
+                            </a>
+                        </li>
+                        <li class="header__action-item">
+                            <a href="#!" class="header__action-link">
+                                <img src="{% static 'img/ic-3.svg' %}" alt="">
+                            </a>
+                        </li>
+                        <div class="user-av">
+                            <a href="{% if user.role == 'client' %}{% url 'client_profile' %}{% elif user.role == 'student' %}{% url 'student_profile' %}{% else %}/admin{% endif %}">
+                                {% if user.image %}
+                                    <img src="{{ user.image.url }}" alt="">
+                                {% else %}
+                                    <img src="{% static 'img/user-profile.svg' %}" alt="">
+                                {% endif %}
+                            </a>
+                        </div>
+                    </ul>
+                {% elif user.is_authenticated and user.role != 'client' and user.role != 'student' %}
+                    <div class="header__input">
+                        <div class="header__input-content">
+                            <input type="text" class="input-reset" placeholder="Search">
+                        </div>
+
+                        <button class="btn-reset log-in header__input-btn" onclick="window.location.href='/admin'">in Admin</button>
+                    </div>
+                {% else %}
+                    <div class="header__input">
+                        <div class="header__input-content">
+                            <input type="text" class="input-reset" placeholder="Search">
+                        </div>
+
+                        <button class="btn-reset log-in header__input-btn" onclick="window.location.href='/login'">Log in</button>
+                        <button class="btn-reset sign-up header__input-btn" onclick="window.location.href='/choose_role'">Sign up</button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+

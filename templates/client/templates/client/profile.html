@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    My profile
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+
+{% block content %}
+<main class="main">
+    <div class="user-portfolio">
+        <div class="container">
+            <div class="section-left">
+                <div class="dashboard">
+                    <h2 class="title">Settings</h2>
+
+                    <ul class="dashboard__list">
+                        <li class="dashboard__list-item">
+                            <a href="#!" class="dashboard__list-link">Get Paid</a>
+                        </li>
+
+                        <li class="dashboard__list-item">
+                            <a href="#!" class="dashboard__list-link">Password & Security</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-tight">
+                <h2 class="section-tight-title">Contact info</h2>
+
+                <div class="section-tight-block">
+                    <button class="btn-reset btn-req">
+                        <img src="./images/red.svg" alt="">
+                    </button>
+
+                    <h2 class="account">Account</h2>
+
+                    <div class="offer__user">
+                        <img src="{% static 'img/user-profile.svg' %}" alt="">
+                    </div>
+
+                    <ul class="user__setting">
+                        <li class="user__setting-item">
+                            <h2>User ID</h2>
+                            <span>{{ user.user_id_key }}</span>
+                        </li>
+
+                        <li class="user__setting-item">
+                            <h2>Name</h2>
+                            <span>{{ user.first_name }} {{ user.last_name }}</span>
+                        </li>
+
+                        <li class="user__setting-item">
+                            <h2>Email</h2>
+                            <span>{{ user.email }}</span>
+                        </li>
+                    </ul>
+
+                    <button class="btn-reset close-acc">Close my account</button>
+                </div>
+
+                <div class="section-tight-block">
+                    <button class="btn-reset btn-req">
+                        <img src="{% static 'img/red.svg' %}" alt="">
+                    </button>
+
+                    <h2 class="account">Location</h2>
+
+                    <ul class="user__setting">
+                        <li class="user__setting-item">
+                            <h2>Time Zone</h2>
+                            <span>
+                                {% if user.time_zone %}
+                                    {{ user.time_zone }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </span>
+                        </li>
+
+                        <li class="user__setting-item">
+                            <h2>Address</h2>
+                            <span>
+                                {% if user.address %}
+                                    {{ user.address }}
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </span>
+                        </li>
+
+                        <li class="user__setting-item">
+                            <h2>Phone</h2>
+                            <span>{{ user.phone_number }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__inner">
+            <ul class="footer__list list-reset">
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">About Us</a>
+                </li>
+
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Community</a>
+                </li>
+            </ul>
+
+            <ul class="footer__list list-reset">
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Cookie Policy</a>
+                </li>
+
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Help & Support</a>
+                </li>
+            </ul>
+
+            <ul class="footer__list list-reset">
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Terms of Service</a>
+                </li>
+
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Privacy Policy</a>
+                </li>
+
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Cookie Settings</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<div class="wrapper-bg"></div>
+</div>
+
+<script defer>
+const infoUserBlock = document.querySelectorAll('.info-user__block');
+
+infoUserBlock.forEach(function (UserBlock) {
+    UserBlock.addEventListener('click', function () {
+        const isActive = UserBlock.classList.contains('active');
+
+        infoUserBlock.forEach(function (UserBlockRemove) {
+            UserBlockRemove.classList.remove('active');
+        });
+
+        if (!isActive) {
+            UserBlock.classList.add('active');
+        }
+    });
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,174 @@
+.offer-v-title{
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 32px;
+    color: white;
+}
+.offer-v-block-info{
+    background-color: #3F89B4;
+    padding: 26px 32px;
+    border-radius: 22px;
+    border: 1px solid #fff;
+}
+.offer-v-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.offer-v-tags{
+    margin-top: 30px;
+}
+.offer-v-tag{
+    background-color: #4e9dca;
+    border: 1px solid #fff;
+    padding: 10px 25px 10px 25px;
+    border-radius: 50px;
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.offer-v-description{
+    background-color: #4e9dca;
+    margin-top: 50px;
+    padding: 20px;
+    color: white;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 21px;
+    border-radius: 20px;
+}
+.offer-v-header__client{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.offer-v-header__client img{
+    width: 50px;
+    margin-right: 17px;
+}
+.offer-v-header__client span{
+    font-size: 18px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    color: white;
+}
+
+.offer-v-block-rates{
+    padding: 26px 32px;
+    border-radius: 22px;
+    margin-top: 20px;
+}
+.offer-v-block-rates__header{
+    background-color: 0;
+}
+.offer-v-block-rates__header h1{
+    font-size: 30px;
+    color: white;
+}
+.block-rates{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.block-rate{
+    margin-bottom: 20px;
+    padding: 20px 10px 20px 10px;
+    border-radius: 5px;
+    background-color: #4e9dca;
+}
+.block-rate__status_false{
+    position: relative;
+}
+.block-rate__status_false::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+.block-rate__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+}
+.block-rate__info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+.block-rate__student{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.block-rate__student .student-qualific{
+    background-color: #69b3df;
+    padding: 7px 15px 7px 15px;
+    border-radius: 50px;
+    margin-left: 20px;
+}
+.block-rate__student span{
+    font-size: 24px;
+    margin-left: 15px;
+    color: white;
+}
+.block-rate__student img{
+    width: 50px;
+}
+.block-rate__body{
+    background-color: 0;
+    padding: 30px 10px 30px 10px;
+    font-size: 20px;
+    color: white;
+}
+
+.offer-v-block-control{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.offer-btn-rate{
+    border: none;
+    background-color: #4e9dca;
+    border: 1px solid #fff;
+    font-size: 20px;
+    border-radius: 50px;
+    padding: 10px 20px 10px 20px;
+    color: white;
+}
+
+.rate-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.rate-form label{
+    font-size: 20px;
+    color: white;
+}
+.rate-form textarea{
+    background-color: #7abfe7;
+    border: 1px solid white;
+    padding: 20px;
+    font-size: 20px;
+    width: 80%;
+    color: white;
+    border-radius: 20px;
+}
+.rate-form button{
+    border: none;
+    background-color: #4e9dca;
+    padding: 10px 20px 10px 20px;
+    border-radius: 50px;
+    border: 2px solid white;
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+}

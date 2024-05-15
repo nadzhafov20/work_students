@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Календарь
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' with user=user %}
+{% endblock %}
+
+{% block content %}
+<style>
+.calendar-block__list_item--none {
+    background-color: #f1f1f1;
+    color: #2c2c2c;
+}
+.calendar-block__list_item--green {
+    background-color: #4fff5e;
+    color: #2c2c2c;
+}
+.calendar-block__list_item--red{
+    background-color: #ff4f4f;
+    color: white;
+}
+.calendar-block__list_item--yellow{
+    background-color: #ffd84f;
+    color: white;
+}
+.calendar-block__list_item--gray{
+    background-color: rgb(206, 206, 206);
+}
+.calendar-block__list_item--default {
+    background-color:  white;
+    color: rgb(39, 39, 39);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dayCells = document.querySelectorAll('.calendar-block__list_item');
+
+    dayCells.forEach(function(dayCell) {
+        dayCell.addEventListener('click', function() {
+            const dayId = dayCell.id.split('-');
+            const monthNumber = dayId[1];
+            const dayNumber = dayId[2];
+
+            // Toggle status
+            if (dayCell.classList.contains('calendar-block__list_item--red')) {
+                dayCell.classList.remove('calendar-block__list_item--red');
+                dayCell.classList.add('calendar-block__list_item--yellow');
+            } else if (dayCell.classList.contains('calendar-block__list_item--yellow')) {
+                dayCell.classList.remove('calendar-block__list_item--yellow');
+                dayCell.classList.add('calendar-block__list_item--green');
+            } else if (dayCell.classList.contains('calendar-block__list_item--green')) {
+                dayCell.classList.remove('calendar-block__list_item--green');
+                dayCell.classList.add('calendar-block__list_item--red');
+            } else {
+                dayCell.classList.remove('calendar-block__list_item--none');
+                dayCell.classList.add('calendar-block__list_item--red');
+            }
+        });
+    });
+
+    function getCookie(name) {
+        const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return cookieValue ? cookieValue.pop() : '';
+    }
+
+    const continueButton = document.querySelector('.btn-calendar');
+    continueButton.addEventListener('click', function() {
+        // Collect updated data and send to server
+        const updatedData = [];
+        dayCells.forEach(function(dayCell) {
+            const dayId = dayCell.id.split('-');
+            const monthNumber = dayId[1];
+            const dayNumber = dayId[2];
+            const status = getStatusFromClass(dayCell.classList);
+
+            // Отправляем только статусы 'B' и 'S'
+            if (status === 'B' || status === 'S' || status === 'N') {
+                updatedData.push({ month: monthNumber, day: dayNumber, status: status });
+            }
+        });
+
+        // Send updatedData to the server
+        fetch("/student/calendar", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: JSON.stringify(updatedData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Updated data:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+        // Send updatedData to the server
+        console.log(updatedData);
+    });
+    function getStatusFromClass(classList) {
+        if (classList.contains('calendar-block__list_item--red')) {
+            return 'B';
+        } else if (classList.contains('calendar-block__list_item--yellow')) {
+            return 'S';
+        } else if (classList.contains('calendar-block__list_item--green')) {
+            return 'N';
+        } else {
+            return 'F';
+        }
+    }
+
+}
+);
+</script>
+
+
+<main class="main">
+    <section class="calendar">
+        <div class="container">
+            <div class="calendar__inner">
+                <div class="start">
+                    <div class="section-left">
+                        <button class="btn-reset btn-create">
+                            <img src="./images/plus.svg" alt="">
+                            <p>Create</p>
+                        </button>
+
+                        <ul class="calendar__action">
+                            <li class="calendar__action-item">
+                                <span class="separator separator-red"></span>
+                                <p class="calendar__action-paragraph">Do not disturb</p>
+                            </li>
+
+                            <li class="calendar__action-item">
+                                <span class="separator separator-yellow"></span>
+                                <p class="calendar__action-paragraph">Additional project</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="section-right">
+                        <h2 class="section-right-title">2024</h2>
+
+                        <div class="calendar-blocks">
+                            {% for month_data in months_data %} 
+                            
+                            <ul class="calendar-block__list list-reset">
+                                <h4>{{ month_data.month_name }}</h4>
+                                <li class="calendar-block__list_top">
+                                    <ul class="list-reset">
+                                        <li>S</li><li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li>S</li>
+                                    </ul>
+                                </li>
+                                <li class="calendar-block__list_bottom">
+                                    <ul class="list-reset">
+                                        {% for week in month_data.month_calendar %}
+                                            {% for day in week %}
+                                                {% if day != 0 %}      
+                                                <li class="calendar-block__list_item{% if day.status == 'B' %} calendar-block__list_item--red{% elif day.status == 'S' %} calendar-block__list_item--yellow{% elif day.status == 'F' %} calendar-block__list_item--none{% elif day.status == 'N' %}calendar-block__list_item--green{% endif %}" id="day-{{ month_data.month_number }}-{{ day.day }}">
+                                                    {% if day == today.day and month_data.month_number == today.month %}
+                                                        <span>{{ day.day }}</span>
+                                                    {% else %}
+                                                        {{ day.day }}
+                                                    {% endif %}
+                                                </li>
+
+                                                {% else %}
+                                                    <li class="calendar-block__list_item--gray"></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="end">
+                    <button class="btn-reset btn-calendar">Continue</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="wrapper-bg"></div>
+
+{% endblock %}

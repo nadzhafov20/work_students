@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Регистрация client
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <section class="form">
+        <div class="container">
+            <div class="form__inner">
+                <form action="{% url 'register_client' %}" method="post" class="user-form user-client">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }
+                }
+                    <h2 class="user-form-title">Form "Client"</h2>
+
+                    <div class="user-form__content">
+                        <div class="start">
+                            <label>
+                                <p>First Name</p>
+                                {{ form.first_name }}
+                                {{ form.first_name.errors }}
+                            </label>
+                
+                            <label>
+                                <p>Last Name</p>
+                                {{ form.last_name }}
+                                {{ form.last_name.errors }}
+                            </label>
+                        </div>
+                
+                        <label>
+                            <p>Email</p>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </label>
+                
+                        <label>
+                            <p>Phone</p>
+                            {{ form.phone_number }}
+                            {{ form.phone_number.errors }}
+                        </label>
+                
+                        <label class="pass">
+                            <p>Password</p>
+                            {{ form.password }}
+                            <span class="pass-btn">
+                                <img src="{% static 'img/pass-view.svg' %}" alt="">
+                            </span>
+                            {{ form.password.errors }}
+                        </label>
+                    </div>
+
+                    <button class="btn-reset user-form-btn" type="submit">Continue</button>
+
+                    <div class="form-new-user">
+                        <span>Don't have an account? <a href="#!">Sign up</a> </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="wrapper-bg"></div>
+{% endblock %}

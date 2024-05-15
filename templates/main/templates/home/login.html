@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Log in
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <section class="form">
+        <div class="container">
+            <div class="form__inner">
+                <form action="{% url 'login' %}" method="post" class="user-form">
+                    {% csrf_token %}
+                    <h2 class="user-form-title">Log in</h2>
+
+                    <div class="user-form__content">
+                        <label>
+                            <p>Email</p>
+                            <input class="input-reset" type="email" required placeholder="Email" name="email">
+                        </label>
+
+                        <label class="pass">
+                            <p>Password</p>
+                            <div class="pass-content">
+                                <input class="input-reset" type="password" required
+                                    placeholder="Password(8 or more characters) " name="password">
+
+                                <span class="pass-btn">
+                                    <img src="{% static 'img/pass-view.svg' %}" alt="">
+                                </span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button class="btn-reset user-form-btn" type="submit">Continue</button>
+
+                    <div class="form-new-user">
+                        <span>Don't have an account? <a href="/choose_role">Sign up</a> </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="wrapper-bg"></div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    My Profile
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' with user=user %}
+{% endblock header %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/student/settings.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .custom-edit-input__active{
+        display: inline-block;
+        padding: 10px 20px 10px 20px;
+        font-weight: 500;
+        font-size: 26px;
+        border-radius: 50px;
+        border: none;
+        color: white;
+        background-color: #5ba7d3;
+    }
+    .custom-edit-input__active::placeholder {
+        color: white;
+    }
+    .custom-edit-input__active:focus {
+        outline: none;
+        border: none;
+    }
+</style>
+
+
+<main class="main">
+    <div class="user-portfolio">
+        <div class="container">
+            <div class="section-left">
+                <div class="dashboard">
+                    <h2 class="title">Settings</h2>
+
+                    <ul class="dashboard__list">
+                        <li class="dashboard__list-item">
+                            <a href="#contact-info" class="dashboard__list-link dashboard__list-block">Contact info</a>
+                        </li>
+
+                        <li class="dashboard__list-item">
+                            <a href="#personal-info" class="dashboard__list-link dashboard__list-block">Personal information</a>
+                        </li>
+
+                        <li class="dashboard__list-item">
+                            <a href="#get-paid" class="dashboard__list-link dashboard__list-block">Get Paid</a>
+                        </li>
+
+                        <li class="dashboard__list-item">
+                            <a href="#password-security" class="dashboard__list-link dashboard__list-block">Password & Security</a>
+                        </li>
+
+                        <li class="dashboard__list-item">
+                            <a href="{% url 'student_calendar' %}" class="dashboard__list-link">My Calendar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section-tight">
+                <div id="personal-info" class="section-right-container" style="display: none;">
+                    {% include 'student/settings/personal_info.html' %}
+                </div>
+                <div id="password-security" class="section-right-container" style="display: none;">
+                    {% include 'student/settings/security.html' %}
+                </div>
+                <div id="contact-info" class="section-right-container" style="display: block;">
+                    {% include 'student/settings/contact_info.html' %}
+                </div>
+                <div id="get-paid" class="section-right-container" style="display: none;">
+                    {% include 'student/settings/get_paid.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+{% include 'home/footer.html' %}
+
+<div class="wrapper-bg"></div>
+{% endblock %}

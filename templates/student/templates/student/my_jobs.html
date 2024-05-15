@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <section class="price">
+        <div class="container">
+            <div class="price__inner">
+                <h2 class="price-title">My jobs</h2>
+                <span class="price-info">Earnings available now: $0.00</span>
+                <span class="price-contracts">Active contracts</span>
+                {% if offers %}
+                {% for offer in offers %}
+                <div style="
+                    background-color: #3c8ea5;
+                    border: 2px solid white;
+                    border-radius: 25px;
+                    padding: 25px 20px 25px 20px;
+                    margin-bottom: 10px;
+                ">
+                <a href="">
+                    <h1>{{ offer.title }}</h1>
+                    {{ offer.user_client.first_name }}
+                </a>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="price-content">
+                    <h2 class="price-content-title">There are no active contracts.</h2>
+                    <h2 class="price-content-subtitle">Contracts you’re actively working on will appear here.
+                    </h2>
+                    <button class="btn-reset price-btn" onclick="window.location.href='{% url 'student_offers' %}'">Search for new projects</button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__inner">
+            <ul class="footer__list list-reset">
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">About Us</a>
+                </li>
+
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Community</a>
+                </li>
+            </ul>
+
+            <ul class="footer__list list-reset">
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Cookie Policy</a>
+                </li>
+
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Help & Support</a>
+                </li>
+            </ul>
+
+            <ul class="footer__list list-reset">
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Terms of Service</a>
+                </li>
+
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Privacy Policy</a>
+                </li>
+
+                <li class="footer__list-item">
+                    <a href="#!" class="footer__list-link">Cookie Settings</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<div class="wrapper-bg"></div>
+
+<script defer>
+    const infoUserBlock = document.querySelectorAll('.info-user__block');
+
+    infoUserBlock.forEach(function (UserBlock) {
+        UserBlock.addEventListener('click', function () {
+            const isActive = UserBlock.classList.contains('active');
+
+            infoUserBlock.forEach(function (UserBlockRemove) {
+                UserBlockRemove.classList.remove('active');
+            });
+
+            if (!isActive) {
+                UserBlock.classList.add('active');
+            }
+        });
+    });
+</script>
+{% endblock %}

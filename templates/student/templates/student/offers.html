@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Offers
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/student/offer.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <section class="offer">
+        <div class="container">
+            <div class="offer__inner developer">
+                <div class="start">
+                    <div class="offer__action">
+                        <div class="offer__user">
+                            <div class="start">
+                                <div class="offer__user-name">{{ user.first_name }} {{ user.last_name }}</div>
+                                <div class="offer__user-dev">{{ user.qualification }}</div>
+                            </div>
+                            {% if user.img %}
+                            <img src="{{ user.image.url }}" alt="">
+                            {% else %}
+                            <img src="{% static 'img/user-profile.svg' %}" alt="">
+                            {% endif%}
+                        </div>
+
+                        <div class="offer__rating">
+                            <h2 class="offer__rating-title">Complete your profile</h2>
+
+                            <div class="offer__rating-bg" data-rating="{{rating_percent}}%">
+                                <span class="offer__rating-rt" style="width:{{rating_percent}}%"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="end">
+                    <div class="offer__search">
+                        <input type="text" class="input-reset" placeholder="Search for jobs">
+                    </div>
+
+                    <div class="info-user">
+                        {% for offer in offers %}
+                            <div class="info-user__block">
+                                <a href="{% url 'offer_detail' offer.id %}">
+                                    <div class="info_name">{{ offer.title }}</div>
+
+                                    <div class="info_muted">
+                                        {{ offer.description }}
+                                    </div>
+                                    
+                                    <ul class="info__skills">
+                                        {% for tag in offer.tags.all %}
+                                            <li class="info__skills-item">
+                                                <p>{{ tag.name }}</p>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+
+                                    <div class="info__price">
+                                        <span>$3k+spend</span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="wrapper-bg"></div>
+{% endblock %}

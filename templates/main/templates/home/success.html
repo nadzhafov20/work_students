@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Почта
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="message">
+        <div class="container">
+            <div class="message__inner">
+                <img src="{% static 'img/message.png' %}" alt="">
+                <p class="message-text">We have sent you an email to confirm your email.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="wrapper-bg"></div>
+{% endblock %}

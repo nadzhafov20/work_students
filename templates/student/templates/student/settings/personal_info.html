@@ -1,0 +1,64 @@
+{% load static %}
+
+
+<div class="section-right-block">
+    <h2 class="section-tight-title">Personal info</h2>
+
+    <div class="section-tight-block">
+        <button class="btn-reset btn-req">
+            <img src="{% static 'img/red.svg' %}" alt="">
+        </button>
+
+        <h2 class="account">Account</h2>
+
+        <ul class="user__setting">
+            <li class="user__setting-item">
+                <h2>Video introduction</h2>
+                <span>
+                    <input class="custom-edit-input__active" placeholder="{{ user.time_zone }}"></input>
+                </span>
+            </li>
+
+            <li class="user__setting-item">
+                <h2>Qualification</h2>
+                <span>
+                    <select class="custom-edit-input__active" name="qualification">
+                        {% for qualification in qualifications %}
+                            <option value="{{ qualification.name }}" {% if qualification.name == user.qualification.name %} selected {% endif %}>
+                                {{ qualification.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </span>
+            </li>
+
+            <li class="user__setting-item">
+                <h2>Price hour</h2>
+                <span>
+                    <input class="custom-edit-input__active" placeholder="{{ user.price_hour }}$/hour"></input>
+                </span>
+            </li>
+
+            <li class="user__setting-item">
+                <h2>Hours per week</h2>
+                <span>
+                    <input class="custom-edit-input__active" placeholder="{{ user.hours_per_week }}"></input>
+                </span>
+            </li>
+
+            <li class="user__setting-item">
+                <h2>Languages</h2>
+                <span>
+                    <input class="custom-edit-input__active" placeholder="{{ user.time_zone }}"></input>
+                </span>
+            </li>
+
+            <li class="user__setting-item">
+                <h2>Education</h2>
+                <span>
+                    <input class="custom-edit-input__active" placeholder="{{ user.time_zone }}"></input>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

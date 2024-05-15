@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Student qualification
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <main class="main">
+        <section class="question">
+            <div class="container">
+                <div class="question__inner">
+                    <h2 class="quest-title">What do you want to be?</h2>
+                    
+                    <form action="{% url 'student_career' %}" class="question-form" method="post">
+                        {% csrf_token %}
+                        <label>
+                            <p class="question-form-muted">Qualification</p>
+
+                            <ul class="question__list list-reset">
+                                <li class="question__list-item question__list--active">
+                                    <p>Lorem ipsum</p>
+                                </li>
+
+                                <li>
+                                    <ul class="question__list_dropdown list-reset">
+                                        {% for qualification in qualifications %}
+                                        <li>
+                                            <input type="radio" name="qualification" value="{{ qualification.id }}">
+                                            {{ qualification.name }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </label>
+
+                        <label>
+                            <p class="question-form-muted">Project direction</p>
+
+                            <ul class="question__list list-reset">
+                                <li class="question__list-item question__list--active">
+                                    <p>Lorem ipsum</p>
+                                </li>
+
+                                <li>
+                                    <ul class="question__list_dropdown list-reset">
+                                        <li>Lorem ipsum1</li>
+                                        <li>Lorem ipsum2</li>
+                                        <li>Lorem ipsum3</li>
+                                        <li>Lorem ipsum4</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </label>
+
+                        <label>
+                            <p class="question-form-muted">Tools</p>
+
+                            <ul class="question__list list-reset">
+                                <li class="question__list-item question__list--active">
+                                    <p>Lorem ipsum</p>
+                                </li>
+
+                                <li>
+                                    <ul class="question__list_dropdown list-reset">
+                                        {% for skill in skills %}
+                                        <li>
+                                            <input type="radio" name="skill" value="{{ skill.id }}"> 
+                                            {{ skill.name }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </label>
+
+                        <button class="btn-reset btn-cal">Set up the employment calendar</button>
+                        <button class="btn-reset btn-photo">Add a portfolio</button>
+
+                        <button class="btn-reset btn-calendar" type="submit">Continue</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="wrapper-bg"></div>
+
+
+    <script defer>
+        const dropdownLists = document.querySelectorAll('.question__list_dropdown');
+
+        dropdownLists.forEach(function (dropdownList) {
+            dropdownList.addEventListener('click', function (event) {
+                if (event.target.tagName === 'LI') {
+                    const selectedText = event.target.textContent;
+
+                    const parentLabel = dropdownList.closest('label');
+
+                    const activeItem = parentLabel.querySelector('.question__list-item p');
+
+                    activeItem.textContent = selectedText;
+                }
+            });
+        });
+
+    </script>
+{% endblock %}
