@@ -1,11 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from offer_app.models import OffersModel
-from django.utils import timezone
-from datetime import date, timedelta
-from calendar import monthrange, monthcalendar
-from student.models import StudentCalendarModel, PortfolioStudentModel, SetQualificationStudentModel, SetStudentSkilsModel
+from calendar import monthcalendar
+from student.models import StudentCalendarModel, EducationStudentModel, PortfolioStudentModel, SetQualificationStudentModel, SetStudentSkilsModel
 from django import template
 from datetime import datetime
 from django.http import JsonResponse
@@ -17,22 +15,42 @@ from main.models import MyUser
 from pytz import all_timezones
 from timezone_field import TimeZoneFormField
 from offer_app.models import OffersModel
+from .forms import PersonalinfoSettingForm, EducationStudentForm
+from django.forms import inlineformset_factory
 
 
 register = template.Library()
 
 
 def profile_settings(request):
+    user = request.user
+    EducationFormSet = inlineformset_factory(MyUser, EducationStudentModel, form=EducationStudentForm, extra=1, can_delete=True)
+
     if request.method == 'POST':
         data = request.POST
-        # Обработка полученных данных
+        personal_info_form = PersonalinfoSettingForm(request.POST, request.FILES, instance=user, prefix='personal')
+        education_formset = EducationFormSet(request.POST, instance=user, prefix='education')
+
+        if personal_info_form.is_valid():
+            personal_info_form.save()
+            education_formset.save()
+
+            return redirect('student_profile_settings')
+
         print(data)
-        return JsonResponse({'status': 'success'}) 
+
     if request.user.is_authenticated:
         if hasattr(request.user, 'role'):
             if request.user.role == 'student':
                 qualifications = SetQualificationStudentModel.objects.all()
-                return render(request, 'student/profile_settings.html', {'user': request.user, 'qualifications':qualifications,})
+                personal_info_form = PersonalinfoSettingForm(instance=user, prefix='personal')
+                education_formset = EducationFormSet(instance=user, prefix='education')
+                context = {
+                    'personal_info_form': personal_info_form,
+                    'education_formset': education_formset,
+                    'user': user
+                }
+                return render(request, 'student/profile_settings.html', context)
             elif request.user.role == 'client':
                 return redirect('client_profile')
     return redirect('login')

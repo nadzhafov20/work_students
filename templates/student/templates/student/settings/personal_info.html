@@ -5,60 +5,58 @@
     <h2 class="section-tight-title">Personal info</h2>
 
     <div class="section-tight-block">
-        <button class="btn-reset btn-req">
-            <img src="{% static 'img/red.svg' %}" alt="">
-        </button>
-
         <h2 class="account">Account</h2>
 
-        <ul class="user__setting">
-            <li class="user__setting-item">
-                <h2>Video introduction</h2>
-                <span>
-                    <input class="custom-edit-input__active" placeholder="{{ user.time_zone }}"></input>
-                </span>
-            </li>
 
-            <li class="user__setting-item">
-                <h2>Qualification</h2>
-                <span>
-                    <select class="custom-edit-input__active" name="qualification">
-                        {% for qualification in qualifications %}
-                            <option value="{{ qualification.name }}" {% if qualification.name == user.qualification.name %} selected {% endif %}>
-                                {{ qualification.name }}
-                            </option>
+            <ul class="user__setting">
+                <li class="user__setting-item">
+                    <h2 for="id_qualification">Qualification:</h2>
+                    <span>
+                        {{ personal_info_form.qualification }}
+                    </span>
+                </li>
+                <li class="user__setting-item">
+                    <h2 for="id_price_hour">Price/hour:</h2>
+                    <span>
+                        {{ personal_info_form.price_hour }}
+                    </span>
+                </li>
+                <li class="user__setting-item">
+                    <h2 for="id_hours_per_week">Hours per week:</h2>
+                    <span>
+                        {{ personal_info_form.hours_per_week }}
+                    </span>
+                </li>
+                <li class="user__setting-item">
+                    <h2 for="id_hours_per_week">About</h2>
+                    <span>
+                        {{ personal_info_form.about }}
+                    </span>
+                </li>
+                <li class="user__setting-item">
+                    <h2>skills</h2>
+                    <span>
+                        {{ personal_info_form.skils }}
+                    </span>
+                </li>
+                <li class="user__setting-item">
+                    <h2>Education</h2>
+                    <ul class="user__setting">
+                        {{ education_formset.management_form }}
+                        {% for education_form in education_formset %}
+                        <li class="user__setting-item">
+                            {{ education_form.text }}
+                            <span>Delete {{ education_form.DELETE }}</span>
+                            <span></span>
+                        </li>
                         {% endfor %}
-                    </select>
-                </span>
-            </li>
-
-            <li class="user__setting-item">
-                <h2>Price hour</h2>
-                <span>
-                    <input class="custom-edit-input__active" placeholder="{{ user.price_hour }}$/hour"></input>
-                </span>
-            </li>
-
-            <li class="user__setting-item">
-                <h2>Hours per week</h2>
-                <span>
-                    <input class="custom-edit-input__active" placeholder="{{ user.hours_per_week }}"></input>
-                </span>
-            </li>
-
-            <li class="user__setting-item">
-                <h2>Languages</h2>
-                <span>
-                    <input class="custom-edit-input__active" placeholder="{{ user.time_zone }}"></input>
-                </span>
-            </li>
-
-            <li class="user__setting-item">
-                <h2>Education</h2>
-                <span>
-                    <input class="custom-edit-input__active" placeholder="{{ user.time_zone }}"></input>
-                </span>
-            </li>
-        </ul>
+                        <button type="button" id="add_education_btn">Add Education</button>
+                    </ul>
+                </li>
+                <button type="submit" class="btn-reset btn-req">
+                    <img src="{% static 'img/red.svg' %}" alt="">
+                </button>
+            </ul>
+  
     </div>
 </div>

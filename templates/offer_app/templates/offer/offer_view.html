@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Offer {{ offer.title }}
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<style>
+    .offer-view{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .offer-view-container{
+        background-color: #3F89B4;
+        padding: 26px 32px;
+        border-radius: 22px;
+        max-width: 1200px;
+        width: 80%;
+        border: 1px solid #fff;
+    }
+    .offer-view-container h1{
+        color: white;
+        font-size: 40px;
+        font-weight: 600;
+    }
+    .offer-view .offer-description{
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #499ac9;
+        font-size: 24px;
+        color: white;
+        font-weight: 600;
+    }
+    .offer-view .offer-team {
+        display: flex;
+    }
+    .offer-view .offer-team .offer-team__user{
+        background-color: #5098c2;
+        margin: 10px;
+        font-size: 20px;
+        padding: 20px 10px 20px 10px;
+        border-radius: 20px;
+    }
+</style>
+
+
+<main class="main">
+    <div class="offer-view">
+        <div class="offer-view-container">
+            <h1>{{ offer.title }}</h1>
+            <div class="offer-description">
+                <span>
+                    {{ offer.description }}
+                </span>
+            </div>
+            <div class="offer-team">
+                <div class="offer-team__user">
+                    <span class="">Client</span>
+                    <span>{{ offer.user_client.first_name }} {{ offer.user_client.last_name }}</span>
+                </div>
+                <div class="offer-team__user">
+                    <span class="">Student</span>
+                    <span>{{ offer.user_student.first_name }} {{ offer.user_student.last_name }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="wrapper-bg"></div>
+{% endblock %}

@@ -100,7 +100,14 @@
                             {% endif %}
                             {% if user.role == 'client' %}
                             <div class="block-rate__client-control">
-                                <button class="select-btn" data-user-id="{{ rate.student.id }}">Select</button>
+                                {% if offer.user_student %}
+                                <a href="{% url 'offer_view' offer.id %}">Go to view</a>
+                                {% else %}
+                                <form method="post" action="{% url 'select_rate' rate.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="select-btn">Select</button>
+                                </form>
+                                {% endif %}
                             </div>
                             {% endif %}
                         </div>
@@ -119,27 +126,6 @@
     $(document).ready(function(){
         $(".offer-btn-rate").click(function(){
             $(".rate-form").toggle();
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('.select-btn').click(function() {
-            var userId = $(this).data('user-id');
-            
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'offer_detail' offer.id %}",
-                data: {
-                    'user_id': userId,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                },
-                success: function(response) {
-                },
-                error: function(xhr, errmsg, err) {
-                }
-            });
         });
     });
 </script>

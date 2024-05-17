@@ -19,18 +19,19 @@
                 <span class="price-contracts">Active contracts</span>
                 {% if offers %}
                 {% for offer in offers %}
-                <div style="
-                    background-color: #3c8ea5;
-                    border: 2px solid white;
-                    border-radius: 25px;
-                    padding: 25px 20px 25px 20px;
-                    margin-bottom: 10px;
-                ">
-                <a href="">
-                    <h1>{{ offer.title }}</h1>
-                    {{ offer.user_client.first_name }}
+                <a href="{% url 'offer_view' offer.id %}">
+                    <div style="
+                        background-color: #3c8ea5;
+                        border: 2px solid white;
+                        border-radius: 25px;
+                        padding: 25px 20px 25px 20px;
+                        margin-bottom: 10px;
+                    ">
+
+                        <h1>{{ offer.title }}</h1>
+                        {{ offer.user_client.first_name }}
+                    </div>
                 </a>
-                </div>
                 {% endfor %}
                 {% else %}
                 <div class="price-content">

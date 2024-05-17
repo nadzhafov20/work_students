@@ -10,8 +10,29 @@
     <h2 class="account">Account</h2>
 
     <div class="offer__user">
-        <img src="{% static 'img/user-profile.svg' %}" alt="">
+        {% if user.image %}
+        <img src="{{ user.image.url }}">
+        {% else %}
+            <img src="{% static 'img/user-profile.svg' %}" alt="">
+        {% endif %}
+        
+        {{ personal_info_form.image }}
     </div>
+
+    <style>
+        input[type="file"]::-webkit-file-upload-button {
+            background-color: #5396bd;
+            color: #fff;
+            padding: 5px 10px;
+            border: none; 
+            border-radius: 20px; 
+            cursor: pointer;
+        }
+        
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #4788ad;
+        }
+    </style>
 
     <ul class="user__setting">
         <li class="user__setting-item">
@@ -45,35 +66,23 @@
 
     <ul class="user__setting">
         <li class="user__setting-item">
-            <h2>Time Zone</h2>
+            <h2 for="id_qualification">Address:</h2>
             <span>
-                {% if user.time_zone %}
-                    <input class="custom-edit-input__active" placeholder="{{ user.time_zone }}"></input>
-                {% else %}
-                    Not specified
-                {% endif %}
+                {{ personal_info_form.address }}
             </span>
-            <ul>
-                {% for timezone in timezones %}
-                    <li>{{ timezone }}</li>
-                {% endfor %}
-            </ul>
         </li>
-
         <li class="user__setting-item">
-            <h2>Address</h2>
+            <h2 for="id_qualification">Time zone:</h2>
             <span>
-                {% if user.address %}
-                    <input class="custom-edit-input__active" placeholder="{{ user.address }}"></input>
-                {% else %}
-                    Not specified
-                {% endif %}
+                {{ personal_info_form.time_zone }}
             </span>
         </li>
-
         <li class="user__setting-item">
             <h2>Phone</h2>
             <span>{{ user.phone_number }}</span>
         </li>
-    </ul>
+        <button type="submit" class="btn-reset btn-req">
+            <img src="{% static 'img/red.svg' %}" alt="">
+        </button>
+    </ul> 
 </div>

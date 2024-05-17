@@ -40,3 +40,20 @@ def offer_detail(request, offer_id):
             form = RateForm()
 
     return render(request, 'offer/offer_detail.html', {'offer': offer, 'rates': rates, 'user': user, 'form': form, 'user_rate_exists':user_rate_exists})
+
+
+def select_rate(request, rate_id):
+    rate = get_object_or_404(RatesOfferModel, id=rate_id)
+    offer = rate.offer
+    if request.method == 'POST':
+        if request.user.role == 'client':
+            offer.user_student = rate.student
+            offer.save()
+
+    return redirect('offer_detail', offer_id=offer.id)
+
+
+def offer_view(request, offer_id):
+    offer = get_object_or_404(OffersModel, id=offer_id)
+    user = request.user
+    return render(request, 'offer/offer_view.html', {'offer':offer,'user':user})
