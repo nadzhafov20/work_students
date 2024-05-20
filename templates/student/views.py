@@ -61,7 +61,7 @@ def my_jobs(request):
             if request.user.role == 'student':
                 user = request.user
                 offers = OffersModel.objects.filter(user_student=user)
-                return render(request, 'student/my_jobs.html', {'offers':offers})
+                return render(request, 'student/my_jobs.html', {'offers':offers, 'user':user})
 
 def portfolio(request):
     if request.method == 'POST':
@@ -88,7 +88,6 @@ def profile(request):
     if request.user.is_authenticated:
         if hasattr(request.user, 'role'):
             if request.user.role == 'student':
-                #student = StudentModel.objects.get(user=request.user.id)
                 portfolio = PortfolioStudentModel.objects.filter(user=request.user)
                 return render(request, 'student/profile.html', {'user': request.user, 'portfolio' : portfolio})
             elif request.user.role == 'client':
@@ -235,3 +234,14 @@ def offers(request):
     total_percent += 30 if student.address else 0
 
     return render(request, 'student/offers.html', {'offers': offers, 'user':request.user, 'rating_percent': total_percent})
+
+
+def public_view(request, username):
+    student = MyUser.objects.get(username=username)
+    portfolio = PortfolioStudentModel.objects.filter(user=student.id)
+    print(portfolio)
+    context = {
+        'student':student,
+        'portfolio':portfolio
+        }
+    return render(request, 'student/public_view.html', context)

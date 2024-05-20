@@ -10,4 +10,5 @@ urlpatterns = [
     path('student/close_account/', views.close_account, name='student_close_account'),
     path('student/portfolio', views.portfolio, name='student_portfolio'),
     path('student/my_jobs', views.my_jobs, name='student_my_jobs'),
+    path('view/profile/<str:username>', views.public_view, name='student_public_view'),
 ]

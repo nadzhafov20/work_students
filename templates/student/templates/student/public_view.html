@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block title %}
-    My Profile
+    Student {{student.first_name}} {{student.last_name}}
 {% endblock %}
 
 {% block header %}
-    {% include 'home/header.html' with user=user %}
-{% endblock header %}
+    {% include 'home/header.html' %}
+{% endblock %}
 
 {% block content %}
 <main class="main">
@@ -19,7 +18,7 @@
                     <div class="start">
                         <div class="portfolio-user">
                             <div class="start">
-                                {% if user.image %}
+                                {% if student.image %}
                                     <img src="{{ user.image.url }}" style="border-radius: 50%;" class="user" alt="">
                                 {% else %}
                                     <img src="{% static 'img/user-profile.svg' %}" class="user" alt="">
@@ -27,7 +26,7 @@
                             </div>
 
                             <div class="end">
-                                <h2 class="portfolio-user-name">{{ user.first_name }} {{ user.last_name }}</h2>
+                                <h2 class="portfolio-user-name">{{ student.first_name }} {{ student.last_name }}</h2>
 
                                 <h2 class="portfolio-user-location">
                                     <img src="{% static 'img/location.svg' %}" alt="">
@@ -35,11 +34,6 @@
                                 </h2>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="end-btns">
-                        <button class="btn-reset portfolio-top-btn btn-public" onclick="window.location.href='{% url "student_public_view" username=user.username %}'">See public view</button>
-                        <button class="btn-reset portfolio-top-btn btn-settings" onclick="window.location.href='/student/settings'">Profile settings</button>
                     </div>
                 </div>
 
@@ -61,8 +55,8 @@
                             </li>
 
                             <li class="portfolio-content__list-muted">
-                                {% if user.hours_per_week %}
-                                    <span>{{ user.hours_per_week }}  Hours</span>
+                                {% if student.hours_per_week %}
+                                    <span>{{ student.hours_per_week }}  Hours</span>
                                 {% else %}
                                     <span>No contract-to-hire preference set</span>
                                 {% endif %}
@@ -94,17 +88,17 @@
                         <div class="content-info">
                             <div class="top">
                                 <button class="btn-reset btn-design">
-                                    <h2>{{ user.qualification.name }}</h2>
+                                    <h2>{{ student.qualification.name }}</h2>
                                 </button>
 
                                 <span class="btn-price">
-                                    <h2>${{ user.price_hour}}/hr </h2>
+                                    <h2>${{ student.price_hour}}/hr </h2>
                                 </span>
                             </div>
 
                             <div class="info">
                                 <h2 class="dev-info">
-                                    {{ user.about }}
+                                    {{ student.about }}
                                 </h2>
 
                                 <button class="btn-reset btn-developer">
@@ -114,10 +108,7 @@
 
                         <div class="content-info">
                             <div class="top">
-                                <button class="btn-reset btn-design btn-port" onclick="window.location.href='/student/portfolio'">
-                                    <h2>Portfolio</h2>
-                                    <img src="{% static 'img/plus.svg' %}" alt="">
-                                </button>
+                                <h2>Portfolio</h2>
                             </div>
 
                             <div class="calendar__inner image-upload-user">
@@ -149,7 +140,7 @@
                             </div>
 
                             <ul class="user-skills__list">
-                                {% for skill in user.skils.all %}
+                                {% for skill in student.skils.all %}
                                 <li class="user-skills__list-item">{{ skill.name }}</li>
                                 {% endfor %}
                             </ul>
@@ -160,6 +151,7 @@
         </div>
     </section>
 </main>
+<div class="wrapper-bg"></div>
 
 
 <style>
@@ -198,7 +190,4 @@
     }
 </style>
 
-{% include 'home/footer.html' %}
-
-<div class="wrapper-bg"></div>
 {% endblock %}

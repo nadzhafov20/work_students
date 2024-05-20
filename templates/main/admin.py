@@ -107,8 +107,8 @@ class MyUserAdmin(UserAdmin):
         elif obj.role == 'student':
             return(
                 (None, {'fields': ('username', 'password', 'user_id_key')}),
-                ('Personal info', {'fields': ('first_name', 'last_name', 'image', 'email', 'phone_number', 'role', 'address', 'time_zone')}),
-                ('Student info', {'fields': ('about', 'price_hour', 'hours_per_week', 'skils', 'qualification')}),
+                ('Personal info', {'fields': ('first_name', 'last_name', 'image', 'email', 'phone_number', 'role', 'email_verified', 'address', 'time_zone')}),
+                ('Student info', {'fields': ('about', 'price_hour', 'hours_per_week', 'skils', 'qualification', 'balance')}),
                 #('Tags', {'fields': ['name'], 'classes': ['collapse']}),  # Добавление filter_horizontal здесь
                 #('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
                 ('Important dates', {'fields': ('last_login', 'date_joined')}),
@@ -124,7 +124,7 @@ class MyUserAdmin(UserAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj and obj.role == 'student':
-            return ('email_verified', 'user_id_key')
+            return ('user_id_key', 'about', 'time_zone', 'price_hour', 'hours_per_week', 'qualification', 'balance', 'address', 'last_login', 'date_joined', 'role', 'email', 'phone_number',) #email_verified
         if obj and obj.role == 'client':
             return ('user_id_key', )
         else:

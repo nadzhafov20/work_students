@@ -49,9 +49,9 @@
                 {% if user.role == 'student' %}
                 <div style="display: flex; justify-content: center; align-items: center;">
                     {% if not user_rate_exists %}
-                        <button class="offer-btn-rate">Сделать ставку</button>                
+                        <button class="offer-btn-rate">Place a bet</button>                
                     {% else %}
-                        <h1 style="font-size: 28px; color: white; font-weight: 600;">Вы уже делали ставку</h1>
+                        <h1 style="font-size: 28px; color: white; font-weight: 600;">You have already placed a bet</h1>
                     {% endif %}
                 </div>
                 <div style="display: flex;">
@@ -65,7 +65,9 @@
                 </div>                
                 
                 {% elif user.role == 'client' %}
-                <button>client</button>
+                <form>
+                    <button class="delete-offer" type="submit">Delete</button>
+                </form>
                 {% endif %}
             </div>
             <div class="offer-v-block-rates">
@@ -95,17 +97,17 @@
                             </div>
                             {% if rate.student == offer.user_student %}
                             <div style="margin-top: 20px; margin-bottom: 20px; font-size: 23px; color: white; background-color: #40a547; padding: 10px;">
-                                Победившая ставка
+                                winning rate
                             </div>
                             {% endif %}
                             {% if user.role == 'client' %}
                             <div class="block-rate__client-control">
                                 {% if offer.user_student %}
-                                <a href="{% url 'offer_view' offer.id %}">Go to view</a>
+                                <a class="select-rate" href="{% url 'offer_view' offer.id %}">Go to view</a>
                                 {% else %}
                                 <form method="post" action="{% url 'select_rate' rate.id %}">
                                     {% csrf_token %}
-                                    <button type="submit" class="select-btn">Select</button>
+                                    <button type="submit" class="select-btn select-rate">Select</button>
                                 </form>
                                 {% endif %}
                             </div>
@@ -121,6 +123,27 @@
     </section>
 </main>
 
+
+<style>
+    .select-rate{
+        background-color: #3a7799;
+        padding: 11px 30px 11px 30px;
+        font-size: 22px;
+        font-weight: 600;
+        border: none;
+        color: white;
+        border-radius: 10px;
+    }
+    .delete-offer{
+        background-color: #993a3a;
+        padding: 11px 70px 11px 70px;
+        font-size: 22px;
+        font-weight: 600;
+        border: none;
+        color: white;
+        border-radius: 10px;
+    }
+</style>
 
 <script>
     $(document).ready(function(){

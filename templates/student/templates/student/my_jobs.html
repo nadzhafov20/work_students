@@ -10,26 +10,83 @@
 {% endblock %}
 
 {% block content %}
+
+<style>
+.offer-box{
+    background-color: #3c8ea5;
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 25px 20px 25px 20px;
+    margin-bottom: 10px;
+}
+.offer-box-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.offer-box-header__title{
+    color: white;
+    font-size: 25px;
+}
+.offer-box-header__status{
+    color: #3c8ea5;
+    background-color: white;
+    padding: 8px 18px 8px 18px;
+    border-radius: 50px;
+    font-size: 20px;
+}
+.client-box-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.client-box-info img{
+    width: 50px;
+    margin-right: 20px;
+}
+.client-box-info span{
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+}
+.offer-box-footer{
+    margin-top: 20px;
+    color: #9cd2e1;
+}
+
+</style>
+
+
 <main class="main">
     <section class="price">
         <div class="container">
             <div class="price__inner">
                 <h2 class="price-title">My jobs</h2>
-                <span class="price-info">Earnings available now: $0.00</span>
+                <span class="price-info">Earnings available now: ${{ user.balance }}</span>
                 <span class="price-contracts">Active contracts</span>
                 {% if offers %}
                 {% for offer in offers %}
                 <a href="{% url 'offer_view' offer.id %}">
-                    <div style="
-                        background-color: #3c8ea5;
-                        border: 2px solid white;
-                        border-radius: 25px;
-                        padding: 25px 20px 25px 20px;
-                        margin-bottom: 10px;
-                    ">
-
-                        <h1>{{ offer.title }}</h1>
-                        {{ offer.user_client.first_name }}
+                    <div class="offer-box">
+                        <div class="offer-box-header">
+                            <h1 class="offer-box-header__title">{{ offer.title }}</h1>
+                            <span class="offer-box-header__status">
+                                {% if offer.status == 'launched' %}
+                                    Launched
+                                {% endif %}
+                            </span>
+                            <div class="client-box-info">
+                                {% if offer.user_client.image %}
+                                <img src="{{ offer.user_client.image.url }}">
+                                {% else %}
+                                <img src="{% static 'img/user-profile.svg' %}" />
+                                {% endif %}
+                                <span class="offer-box-header__client">{{ offer.user_client.first_name }} {{ offer.user_client.last_name }}</span>
+                            </div>
+                        </div>
+                        <div class="offer-box-footer">
+                            <span>{{ offer.date_add }}</span>
+                        </div>
                     </div>
                 </a>
                 {% endfor %}

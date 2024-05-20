@@ -106,3 +106,30 @@ class RatesOfferModel(models.Model):
     class Meta:
         verbose_name = 'Rate'
         verbose_name_plural = 'Rates'
+
+class MessagesOfferModel(models.Model):
+    offer = models.ForeignKey(
+        OffersModel,
+        on_delete=models.CASCADE,
+        verbose_name='Offer'
+    )
+    from_user = models.ForeignKey(
+        MyUser,
+        on_delete=models.CASCADE,
+        verbose_name='User'
+    )
+    message = models.TextField(
+        max_length=1000,
+        verbose_name='Message'
+    )
+    date_sent = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Datetime sent'
+    )
+
+    def __str__(self):
+        return str(self.date_sent)
+
+    class Meta:
+        verbose_name = 'Message'
+        verbose_name_plural = 'Messages'

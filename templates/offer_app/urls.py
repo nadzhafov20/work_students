@@ -11,5 +11,8 @@ urlpatterns = [
 
     path('offer/<int:offer_id>/view', views.offer_view, name='offer_view'),
 
+    path('api/get-message/<int:offer_id>/', views.api_get_message, name='api_get_message'),
+
+    path('api/setoffer-status/<int:offer_id>/', views.api_client_offer_status, name='api_client_offer_status'),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
