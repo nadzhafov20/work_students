@@ -13,6 +13,11 @@
 
 {% endblock %}
 
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+
 {% block content %}
 <main class="main">
     <section class="offer">
@@ -23,7 +28,6 @@
                         <div class="offer__user">
                             <div class="start">
                                 <div class="offer__user-name">{{ user.first_name }} {{ user.last_name }}</div>
-                                <div class="offer__user-dev">{{ user.qualification }}</div>
                             </div>
                             {% if user.img %}
                             <img src="{{ user.image.url }}" alt="">
@@ -31,20 +35,12 @@
                             <img src="{% static 'img/user-profile.svg' %}" alt="">
                             {% endif%}
                         </div>
-
-                        <div class="offer__rating">
-                            <h2 class="offer__rating-title">Complete your profile</h2>
-
-                            <div class="offer__rating-bg" data-rating="{{rating_percent}}%">
-                                <span class="offer__rating-rt" style="width:{{rating_percent}}%"></span>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
                 <div class="end">
                     <div class="offer__search">
-                        <input type="text" class="input-reset" placeholder="Search for jobs">
+                        <input type="text" id="search-input" class="input-reset" placeholder="Search for jobs">
                     </div>
                     
                     <div style="margin-top: 50px; margin-bottom: 50px; display: flex; justify-content: center; align-items: center;">
@@ -83,4 +79,15 @@
 </main>
 
 <div class="wrapper-bg"></div>
+
+<script>
+    $(document).ready(function(){
+        $("#search-input").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".info-user__block").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 {% endblock %}

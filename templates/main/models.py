@@ -7,6 +7,8 @@ from timezone_field import TimeZoneField
 
 
 
+# App Main
+
 class MyUser(AbstractUser):
     ROLE_CHOICES = (
         ('student', 'Student'),
@@ -113,6 +115,12 @@ class MyUser(AbstractUser):
         SetStudentSkilsModel,
         verbose_name='Skils'
     )
+    video_introduction = models.FileField(
+        upload_to='video_introductions/',
+        null=True,
+        blank=True,
+        verbose_name='Video introduction'
+        )
 
     user_id_key = models.CharField(
         unique=True,

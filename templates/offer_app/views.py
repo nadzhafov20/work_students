@@ -76,8 +76,18 @@ def offer_view(request, offer_id):
 
 def api_client_offer_status(request, offer_id):
     print(f"OFFER DELETE {offer_id}")
-    offer = OffersModel.objects.delete(id=offer_id)
+    offer = OffersModel.objects.get(id=offer_id)
+    offer.status = 'completed'
+    offer.save()
     return redirect('client_my_offers')
+
+def api_client_offer_delete(request, offer_id):
+    offer = OffersModel.objects.get(id=offer_id)
+    if offer.user_student:
+        return redirect('client_my_offers')
+    else:
+        offer.delete()
+        return redirect('client_my_offers')
 
 def api_get_message(request, offer_id):
     last_displayed_message = request.GET.get('last_displayed_message')

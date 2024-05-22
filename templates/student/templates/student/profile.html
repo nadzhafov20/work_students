@@ -31,7 +31,7 @@
 
                                 <h2 class="portfolio-user-location">
                                     <img src="{% static 'img/location.svg' %}" alt="">
-                                    <span>Lviv, Ukraine – 2:53 am local time</span>
+                                    <span>{{ user.address }} – {{ current_time_user_tz }} local time</span>
                                 </h2>
                             </div>
                         </div>
@@ -87,6 +87,11 @@
                             <li class="portfolio-content__list-title">
                                 <a href="#!">Education</a>
                             </li>
+                            {% for education in educations %}
+                            <li class="portfolio-content__list-subtitle">
+                                <span>{{ education.text }}</span>
+                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
 
@@ -195,6 +200,10 @@
     .block-work {
         background-size: cover;
         background-position: center;
+    }
+
+    .form-edu-control-input{
+        
     }
 </style>
 

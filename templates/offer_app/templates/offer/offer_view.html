@@ -99,6 +99,8 @@
                 <h1>{{ offer.title }}</h1>
                 {% if offer.status == 'launched' %}
                     <span class="offer-view__status offer-view__launched">Launched</span>                
+                {% elif offer.status == 'completed' %}
+                    <span class="offer-view__status offer-view__launched">Completed</span>                
                 {% endif %}
             </div>
             <div class="offer-description">
@@ -118,7 +120,7 @@
             </div>
         </div>
     </div>
-    {% if offer.user_client.id == user.id %}
+    {% if offer.user_client.id == user.id and offer.status == 'launched' %}
     <div class="offer-control">
         <form method="post" action="{% url 'api_client_offer_status' offer.id %}">
             {% csrf_token %}

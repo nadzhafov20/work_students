@@ -44,13 +44,10 @@
                     <ul class="user__setting">
                         {{ education_formset.management_form }}
                         {% for education_form in education_formset %}
-                        <li class="user__setting-item">
-                            {{ education_form.text }}
-                            <span>Delete {{ education_form.DELETE }}</span>
-                            <span></span>
+                        <li class="user__setting-item form-edu-control">
+                            {{ education_form.as_p }}
                         </li>
                         {% endfor %}
-                        <button type="button" id="add_education_btn">Add Education</button>
                     </ul>
                 </li>
                 <button type="submit" class="btn-reset btn-req">

@@ -64,8 +64,9 @@
                     {% endif %}
                 </div>                
                 
-                {% elif user.role == 'client' %}
-                <form>
+                {% elif user.role == 'client' and not offer.user_student %}
+                <form method="post" action="{% url 'api_client_offer_delete' offer.id %}">
+                    {% csrf_token %}
                     <button class="delete-offer" type="submit">Delete</button>
                 </form>
                 {% endif %}

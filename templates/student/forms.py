@@ -20,6 +20,9 @@ class EducationStudentForm(forms.ModelForm):
     class Meta:
         model = EducationStudentModel
         fields = ['text']
+        widgets = {
+            'text': forms.TextInput(attrs={'class': 'custom-edit-input__active'}),
+        }
 
 class PersonalinfoSettingForm(forms.ModelForm):
     education_formset = forms.inlineformset_factory(

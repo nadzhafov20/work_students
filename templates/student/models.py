@@ -2,6 +2,8 @@ from django.db import models
 import uuid
 
 
+# App student
+
 class SetStudentSkilsModel(models.Model):
     name = models.CharField(
         max_length=50,

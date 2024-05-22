@@ -15,7 +15,7 @@ class MessagesOfferInline(admin.StackedInline):
 
 class OffersAdmin(admin.ModelAdmin):
     inlines = [MessagesOfferInline, RatesOfferInline]
-    readonly_fields = ('user_client', 'user_student', 'title', 'description', 'date_add', 'date_end', 'tags', 'spent', 'status', )
+    readonly_fields = ('user_client', 'user_student', 'title', 'description', 'date_add', 'tags', 'spent', 'status', )
 
 admin.site.register(OffersModel, OffersAdmin)
 admin.site.register(TagOfferModel)

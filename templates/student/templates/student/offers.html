@@ -53,8 +53,9 @@
                         {% for offer in offers %}
                             <div class="info-user__block">
                                 <a href="{% url 'offer_detail' offer.id %}">
-                                    <div class="info_name">{{ offer.title }}</div>
-
+                                    <div class="info_name" style="display: flex; justify-content: space-between;">
+                                        <h1>{{ offer.title }}</h1>
+                                    </div>
                                     <div class="info_muted">
                                         {{ offer.description }}
                                     </div>
@@ -68,8 +69,11 @@
                                     </ul>
 
                                     <div class="info__price">
-                                        <span>$3k+spend</span>
+                                        <span>${{ offer.spent }} spend</span>
                                     </div>
+                                    {% if offer.user_student.id == user.id %}
+                                    <div style="background-color: white; padding: 10px 20px 10px 20px; border-radius: 50px; color: #3F89B4;">I'm participating</div>
+                                    {% endif %}
                                 </a>
                             </div>
                         {% endfor %}

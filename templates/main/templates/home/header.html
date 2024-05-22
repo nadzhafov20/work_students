@@ -18,12 +18,9 @@
                         </ul>
                     {% elif user.role == 'client' %}
                         <ul class="header__dropdown">
-                            <li class="header__dropdown-item header__dropdown--active">Find Student</li>
-                            <ul class="header__dropdown_list">
-                                <li class="header__dropdown_list-item">Find Student</li>
-                                <li class="header__dropdown_list-item">Find Student</li>
-                                <li class="header__dropdown_list-item">Find Student</li>
-                            </ul>
+                            <a href="{% url 'client_students' %}">
+                                <li class="header__dropdown-item header__dropdown--active">Find Student</li>
+                            </a>
                         </ul>
                         <ul class="header__dropdown">
                             <a href="{% url 'client_my_offers' %}"> 
@@ -34,22 +31,8 @@
                 {% else %}
                     <ul class="header__dropdown">
                         <li class="header__dropdown-item header__dropdown--active">Find Student</li>
-                        <ul class="header__dropdown_list">
-                            <li class="header__dropdown_list-item">Find Student</li>
-                            <li class="header__dropdown_list-item">Find Student</li>
-                            <li class="header__dropdown_list-item">Find Student</li>
-                        </ul>
                     </ul>
                 {% endif %}
-
-                <ul class="header__dropdown">
-                    <li class="header__dropdown-item header__dropdown--active">Finde Work</li>
-                    <ul class="header__dropdown_list">
-                        <li class="header__dropdown_list-item">Find Student</li>
-                        <li class="header__dropdown_list-item">Find Student</li>
-                        <li class="header__dropdown_list-item">Find Student</li>
-                    </ul>
-                </ul>
             </div>
 
             <div class="end">

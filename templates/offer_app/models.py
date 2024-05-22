@@ -2,6 +2,7 @@ from django.db import models
 from main.models import MyUser
 
 
+# App Offer
 
 class TagOfferModel(models.Model):
     name = models.CharField(
@@ -48,12 +49,6 @@ class OffersModel(models.Model):
     date_add = models.DateTimeField(
         auto_now=True,
         verbose_name='Datetime add'
-    )
-    date_end = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name='Datetime end',
-        help_text='Leave blank if time is unlimited' 
     )
     tags = models.ManyToManyField(
         TagOfferModel,
