@@ -1,4 +1,4 @@
-# Project "Freelance Student"
+# Project "Work Students"
 
 A freelance platform tailored for students.
 
