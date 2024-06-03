@@ -111,7 +111,7 @@ USE_TZ = True
 
 # Настройки почты для отправки электронных писем
 
-EMAIL_API_KEY = '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'
+EMAIL_API_KEY = ''
 EMAIL_FROM = 'ferot7a37@gmail.com'
 
 
