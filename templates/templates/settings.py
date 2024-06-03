@@ -31,8 +31,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'student',
     'client',
+    'offer_app',
+    'ad_app',
     'main',
-    'offer_app'
 ]
 
 MIDDLEWARE = [
@@ -110,7 +111,7 @@ USE_TZ = True
 
 # Настройки почты для отправки электронных писем
 
-EMAIL_API_KEY = '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'
+EMAIL_API_KEY = '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'
 EMAIL_FROM = 'ferot7a37@gmail.com'
 
 
@@ -120,7 +121,15 @@ BASE_URL = 'http://127.0.0.1:8000'
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'main/static'),
+    os.path.join(BASE_DIR, 'student/static'),
+    os.path.join(BASE_DIR, 'offer_app/static'),
+    os.path.join(BASE_DIR, 'client/static'),
+    os.path.join(BASE_DIR, 'ad_app/static'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

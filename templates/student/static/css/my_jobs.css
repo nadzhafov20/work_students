@@ -1,0 +1,41 @@
+.offer-box{
+    background-color: #3c8ea5;
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 25px 20px 25px 20px;
+    margin-bottom: 10px;
+}
+.offer-box-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.offer-box-header__title{
+    color: white;
+    font-size: 25px;
+}
+.offer-box-header__status{
+    color: #3c8ea5;
+    background-color: white;
+    padding: 8px 18px 8px 18px;
+    border-radius: 50px;
+    font-size: 20px;
+}
+.client-box-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.client-box-info img{
+    width: 50px;
+    margin-right: 20px;
+}
+.client-box-info span{
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+}
+.offer-box-footer{
+    margin-top: 20px;
+    color: #9cd2e1;
+}

@@ -19,66 +19,62 @@
 
 
 {% block content %}
-<main class="main">
-    <section class="offer">
-        <div class="container">
-            <div class="offer__inner developer">
-                <div class="start">
-                    <div class="offer__action">
-                        <div class="offer__user">
-                            <div class="start">
-                                <div class="offer__user-name">{{ user.first_name }} {{ user.last_name }}</div>
-                            </div>
-                            {% if user.img %}
-                            <img src="{{ user.image.url }}" alt="">
-                            {% else %}
-                            <img src="{% static 'img/user-profile.svg' %}" alt="">
-                            {% endif%}
+<section class="offer">
+    <div class="container">
+        <div class="offer__inner developer">
+            <div class="start">
+                <div class="offer__action">
+                    <div class="offer__user">
+                        <div class="start">
+                            <div class="offer__user-name">{{ user.first_name }} {{ user.last_name }}</div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="end">
-                    <div class="offer__search">
-                        <input type="text" id="search-input" class="input-reset" placeholder="Search for jobs">
-                    </div>
-                    
-                    <div style="margin-top: 50px; margin-bottom: 50px; display: flex; justify-content: center; align-items: center;">
-                        <button onclick="window.location.href='{% url 'client_add_offer' %}'" style="width: 500px; font-size: 24px; border: none; height: 50px; border-radius: 25px; background-color: #3F89B4; border: 1px solid white; color: white;">Add new offer</button>
-                    </div>
-
-                    <div class="info-user">
-                        {% for offer in offers %}
-                            <div class="info-user__block">
-                                <a href="{% url 'offer_detail' offer.id %}">
-                                    <div class="info_name">{{ offer.title }}</div>
-
-                                    <div class="info_muted">
-                                        {{ offer.description }}
-                                    </div>
-                                    
-                                    <ul class="info__skills">
-                                        {% for tag in offer.tags.all %}
-                                            <li class="info__skills-item">
-                                                <p>{{ tag.name }}</p>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-
-                                    <div class="info__price">
-                                        <span>$3k+spend</span>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
+                        {% if user.img %}
+                        <img src="{{ user.image.url }}" alt="">
+                        {% else %}
+                        <img src="{% static 'img/user-profile.svg' %}" alt="">
+                        {% endif%}
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</main>
 
-<div class="wrapper-bg"></div>
+            <div class="end">
+                <div class="offer__search">
+                    <input type="text" id="search-input" class="input-reset" placeholder="Search for jobs">
+                </div>
+                
+                <div style="margin-top: 50px; margin-bottom: 50px; display: flex; justify-content: center; align-items: center;">
+                    <button onclick="window.location.href='{% url 'client_add_offer' %}'" style="width: 500px; font-size: 24px; border: none; height: 50px; border-radius: 25px; background-color: #3F89B4; border: 1px solid white; color: white;">Add new offer</button>
+                </div>
+
+                <div class="info-user">
+                    {% for offer in offers %}
+                        <div class="info-user__block">
+                            <a href="{% url 'offer_detail' offer.id %}">
+                                <div class="info_name">{{ offer.title }}</div>
+
+                                <div class="info_muted">
+                                    {{ offer.description }}
+                                </div>
+                                
+                                <ul class="info__skills">
+                                    {% for tag in offer.tags.all %}
+                                        <li class="info__skills-item">
+                                            <p>{{ tag.name }}</p>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="info__price">
+                                    <span>$3k+spend</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <script>
     $(document).ready(function(){

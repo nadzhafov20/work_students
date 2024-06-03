@@ -1,7 +1,10 @@
 {% load static %}
+{% load ad_tags %}
+
 
 <header class="header">
     <div class="container">
+        {% display_header_ad 'header' %}
         <div class="header__inner">
             <div class="start">
                 
@@ -29,9 +32,7 @@
                         </ul>
                     {% endif %}
                 {% else %}
-                    <ul class="header__dropdown">
-                        <li class="header__dropdown-item header__dropdown--active">Find Student</li>
-                    </ul>
+
                 {% endif %}
             </div>
 

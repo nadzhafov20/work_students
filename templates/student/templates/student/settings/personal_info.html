@@ -1,13 +1,10 @@
 {% load static %}
 
-
 <div class="section-right-block">
     <h2 class="section-tight-title">Personal info</h2>
 
     <div class="section-tight-block">
         <h2 class="account">Account</h2>
-
-
             <ul class="user__setting">
                 <li class="user__setting-item">
                     <h2 for="id_qualification">Qualification:</h2>
@@ -40,6 +37,23 @@
                     </span>
                 </li>
                 <li class="user__setting-item">
+                    <h2>Video introduction</h2>
+                    <span>
+                        {{ personal_info_form.video_introduction }}
+                    </span>
+                </li>
+                <li class="user__setting-item">
+                    <h2>Language</h2>
+                    <ul class="user__setting">
+                        {{ language_formset.management_form }}
+                        {% for language_form in language_formset %}
+                        <li class="user__setting-item form-edu-control">
+                            {{ language_form.as_p }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="user__setting-item">
                     <h2>Education</h2>
                     <ul class="user__setting">
                         {{ education_formset.management_form }}
@@ -54,6 +68,5 @@
                     <img src="{% static 'img/red.svg' %}" alt="">
                 </button>
             </ul>
-  
     </div>
 </div>

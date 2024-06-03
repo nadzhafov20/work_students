@@ -1,0 +1,99 @@
+{% load static %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+    .chart-container {
+        width: 100%;
+        max-width: 1200px;
+        background-color: #093945;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #technology-chart {
+        width: 100%;
+        height: 100%;
+    }
+
+    .plotly .modebar {
+        display: none !important;
+    }
+</style>
+
+
+<div class="stats-container">
+    <div class="stats-header">
+        <h1 class="main-title"></h1>
+    </div>
+    <div class="stats-content">
+        <div class="chart-container">
+            <div id="technology-chart"></div>
+        </div>
+        <script>
+            // Получаем данные из контекста
+            var qualifications = {{ qualifications|safe }};
+            var counts = {{ counts|safe }};
+        
+            // Настройка графика
+            var data = [{
+                x: qualifications,
+                y: counts,
+                type: 'bar',
+                marker: {
+                    color: '#57afc7'
+                }
+            }];
+        
+            var layout = {
+                title: {
+                    text: 'Technology Usage Statistics',
+                    font: {
+                        size: 24,
+                        color: '#5dbfde'
+                    }
+                },
+                xaxis: {
+                    title: {
+                        text: 'Technology',
+                        font: {
+                            size: 18,
+                            color: '#5dbfde'
+                        },
+                        tickfont: {
+                            size: 14,
+                            color: '#5dbfde'
+                        }
+                    },
+                },
+                yaxis: {
+                    title: {
+                        text: 'Number of Offers',
+                        font: {
+                            size: 18,
+                            color: '#5dbfde'
+                        },
+                        tickfont: {
+                            size: 14,
+                            color: '#5dbfde'
+                        },
+                    },
+                    tickmode: 'count',
+                    tick0: 0,
+                    dtick: 1,
+                },
+                plot_bgcolor: '#093945',
+                paper_bgcolor: '#093945',
+                font: {
+                    color: '#5dbfde'
+                }
+            };
+        
+            var config = {
+                staticPlot: true // Отключаем возможность зуммирования и панорамирования
+            };
+        
+            Plotly.newPlot('technology-chart', data, layout, config);
+        </script>
+    </div>
+</div>

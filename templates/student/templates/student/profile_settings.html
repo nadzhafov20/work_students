@@ -15,117 +15,59 @@
     <script src="{% static 'js/student/settings.js' %}"></script>
 {% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile_settings.css' %}">
+{% endblock %}
+
 {% block content %}
+<div class="user-portfolio">
+    <div class="container">
+        <div class="section-left">
+            <div class="dashboard">
+                <h2 class="title">Settings</h2>
 
-<style>
-    .custom-edit-input__active{
-        display: inline-block;
-        padding: 10px 20px 10px 20px;
-        font-weight: 500;
-        font-size: 26px;
-        border-radius: 50px;
-        border: none;
-        color: white;
-        background-color: #5ba7d3;
-    }
-    .custom-edit-input__active::placeholder {
-        color: white;
-    }
-    .custom-edit-input__active:focus {
-        outline: none;
-        border: none;
-    }
+                <ul class="dashboard__list">
+                    <li class="dashboard__list-item">
+                        <a href="#contact-info" class="dashboard__list-link dashboard__list-block">Contact info</a>
+                    </li>
 
-    .custom-checkbox {
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border: 1px solid #999;
-        border-radius: 4px;
-        background-color: #fff;
-        cursor: pointer;
-    }
+                    <li class="dashboard__list-item">
+                        <a href="#personal-info" class="dashboard__list-link dashboard__list-block">Personal information</a>
+                    </li>
 
-    .custom-checkbox:hover {
-        background-color: #f0f0f0;
-    }
+                    <li class="dashboard__list-item">
+                        <a href="#get-paid" class="dashboard__list-link dashboard__list-block">Get Paid</a>
+                    </li>
 
-    .custom-checkbox.checked {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
+                    <li class="dashboard__list-item">
+                        <a href="#password-security" class="dashboard__list-link dashboard__list-block">Password & Security</a>
+                    </li>
 
-    .custom-checkbox.checked::after {
-        content: '\2713';
-        font-size: 14px;
-        color: #fff;
-        text-align: center;
-        line-height: 20px;
-    }
-
-    .form-edu-control{
-        
-    }
-
-</style>
-
-
-<main class="main">
-    <div class="user-portfolio">
-        <div class="container">
-            <div class="section-left">
-                <div class="dashboard">
-                    <h2 class="title">Settings</h2>
-
-                    <ul class="dashboard__list">
-                        <li class="dashboard__list-item">
-                            <a href="#contact-info" class="dashboard__list-link dashboard__list-block">Contact info</a>
-                        </li>
-
-                        <li class="dashboard__list-item">
-                            <a href="#personal-info" class="dashboard__list-link dashboard__list-block">Personal information</a>
-                        </li>
-
-                        <li class="dashboard__list-item">
-                            <a href="#get-paid" class="dashboard__list-link dashboard__list-block">Get Paid</a>
-                        </li>
-
-                        <li class="dashboard__list-item">
-                            <a href="#password-security" class="dashboard__list-link dashboard__list-block">Password & Security</a>
-                        </li>
-
-                        <li class="dashboard__list-item">
-                            <a href="{% url 'student_calendar' %}" class="dashboard__list-link">My Calendar</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="section-tight">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div id="personal-info" class="section-right-container" style="display: none;">
-                        {% include 'student/settings/personal_info.html' %}
-                    </div>
-                    <div id="password-security" class="section-right-container" style="display: none;">
-                        {% include 'student/settings/security.html' %}
-                    </div>
-                    <div id="contact-info" class="section-right-container" style="display: block;">
-                        {% include 'student/settings/contact_info.html' %}
-                    </div>
-                    <div id="get-paid" class="section-right-container" style="display: none;">
-                        {% include 'student/settings/get_paid.html' %}
-                    </div>
-                </form>
+                    <li class="dashboard__list-item">
+                        <a href="{% url 'student_calendar' %}" class="dashboard__list-link">My Calendar</a>
+                    </li>
+                </ul>
             </div>
         </div>
+
+        <div class="section-tight">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div id="personal-info" class="section-right-container" style="display: none;">
+                    {% include 'student/settings/personal_info.html' %}
+                </div>
+                <div id="password-security" class="section-right-container" style="display: none;">
+                    {% include 'student/settings/security.html' %}
+                </div>
+                <div id="contact-info" class="section-right-container" style="display: block;">
+                    {% include 'student/settings/contact_info.html' %}
+                </div>
+                <div id="get-paid" class="section-right-container" style="display: none;">
+                    {% include 'student/settings/get_paid.html' %}
+                </div>
+            </form>
+        </div>
     </div>
-
-</main>
-
-
-
+</div>
 {% include 'home/footer.html' %}
-
-<div class="wrapper-bg"></div>
 {% endblock %}

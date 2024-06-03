@@ -27,3 +27,24 @@ btnPass.addEventListener('click', function () {
     }
 });
 
+function logout() {
+    console.log('LOGOUT');
+    var button = document.querySelector('.close-acc');
+    var closeUrl = button.dataset.closeUrl;
+    var csrfToken = button.dataset.csrfToken;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', closeUrl, true);
+    xhr.setRequestHeader('X-CSRFToken', csrfToken);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('Logged out successfully');
+                location.reload();
+            } else {
+                console.error('Error logging out');
+            }
+        }
+    };
+    xhr.send();
+}

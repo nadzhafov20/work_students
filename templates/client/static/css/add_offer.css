@@ -1,0 +1,38 @@
+.add-offer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-offer-container{
+    max-width: 1200px;
+    width: 80%;
+    background-color: #3F89B4;
+    padding: 120px 0 0 0;
+    border-radius: 25px;
+    border: 2px solid white;
+    padding: 25px;
+}
+
+.add-offer .description-form, .title-form, .spent-form, .tags-form, .date_end-form{
+    background-color: #4d9ece;
+    border: 1px solid white;
+    border-radius: 20px;
+    font-size: 26px;
+    color: white;
+    width: 100%;
+    padding: 17px;
+}
+.add-offer .btn-form{
+    background-color: #4d9ece;
+    color: white;
+    padding: 20px 10px 20px 10px;
+    border: 1px solid white;
+    border-radius: 50px;
+    width: 200px;
+}
+.add-offer .text-label-form{
+    font-size: 24px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Community
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="information">
+        <h2>Terms of Service</h2>
+        <p>Welcome to <strong>[Platform Name]</strong>! These Terms of Service ("Terms") govern your use of our website and services. By accessing or using our platform, you agree to comply with these Terms and all applicable laws and regulations. If you do not agree with these Terms, please do not use our platform.</p>
+        <h3>Account Registration</h3>
+        <p>In order to access certain features of our platform, you may be required to create an account. You are responsible for maintaining the confidentiality of your account credentials and for any activities that occur under your account. You agree to provide accurate and complete information when creating an account and to update your information as necessary to keep it current.</p>
+        <h3>Intellectual Property</h3>
+        <p>All content on our platform, including text, graphics, logos, images, and software, is the property of <strong>[Platform Name]</strong> or its licensors and is protected by copyright and other intellectual property laws. You may not reproduce, modify, distribute, or republish any content from our platform without our prior written consent.</p>
+        <h3>Limitation of Liability</h3>
+        <p><strong>[Platform Name]</strong> shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use our platform; (ii) any conduct or content of any third party on our platform; or (iii) unauthorized access, use, or alteration of your transmissions or content.</p>
+        <h3>Changes to Terms</h3>
+        <p>We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+        <p>By continuing to access or use our platform after any revisions become effective, you agree to be bound by the revised Terms. If you do not agree to the new Terms, please stop using our platform.</p>
+        <p>For more details, please read our full Terms of Service.</p>
+    </section>
+</div>
+{% endblock %}

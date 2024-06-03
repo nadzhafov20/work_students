@@ -14,6 +14,9 @@ urlpatterns = [
 
     path('success/', views.success_view, name='success_url'),
 
+    path('close_account/', views.close_account, name='close_account'),
+
+
     path('verify-email/<str:token>/', views.verify_email, name='verify_email'),
 
     path('about_us', views.about_us, name='about_us'),
@@ -21,5 +24,7 @@ urlpatterns = [
     path('cookie_policy', views.cookie_policy, name='cookie_policy'),
     path('help_support', views.help_support, name='help_support'),
     path('cookie_settings', views.cookie_settings, name='cookie_settings'),
+    path('terms_of_service', views.terms_of_service, name='terms_of_service'),
+    path('privacy_policy', views.privacy_policy, name='privacy_policy'),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

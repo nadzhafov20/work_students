@@ -10,99 +10,53 @@
 {% endblock %}
 
 {% block styles %}
-
+<link rel="stylesheet" href="{% static 'css/add_offer.css' %}">
 {% endblock %}
 
 {% block content %}
-<style>
-    .add-offer{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .add-offer-container{
-        max-width: 1200px;
-        width: 80%;
-        background-color: #3F89B4;
-        padding: 120px 0 0 0;
-        border-radius: 25px;
-        border: 2px solid white;
-        padding: 25px;
-    }
-
-    .add-offer .description-form, .title-form, .spent-form, .tags-form, .date_end-form{
-        background-color: #4d9ece;
-        border: 1px solid white;
-        border-radius: 20px;
-        font-size: 26px;
-        color: white;
-        width: 100%;
-        padding: 17px;
-    }
-    .add-offer .btn-form{
-        background-color: #4d9ece;
-        color: white;
-        padding: 20px 10px 20px 10px;
-        border: 1px solid white;
-        border-radius: 50px;
-        width: 200px;
-    }
-    .add-offer .text-label-form{
-        font-size: 24px;
-        color: white;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-</style>
-
-
-<main class="main">
-    <div class="add-offer">
-        <div class="add-offer-container">
-            <h1>
-                Add new offer
-            </h1>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <ul>
-                    <li>
-                        <h1 class="text-label-form">Title</h1>
-                        <span>
-                            {{ form.title }} 
-                        </span>
-                    </li>
-                    <li>
-                        <h1 class="text-label-form">Description</h1>
-                        <span>
-                            {{ form.description }}
-                        </span>
-                    </li>
-                    <li>
-                        <h1 class="text-label-form">Spent</h1>
-                        <span>
-                            {{ form.spent }}
-                        </span>
-                    </li>
-                    <li>
-                        <h1 class="text-label-form">Tags</h1>
-                        <span>
-                            {{ form.tags }}
-                        </span>
-                    </li>
-                    <li>
-                        <h1 class="text-label-form">Date end</h1>
-                        <span>
-                            {{ form.date_end }} 
-                        </span>
-                    </li>
-                    <li style="display: flex; justify-content: center; align-items: center; padding: 40px;">
-                        <button class="btn-form" type="submit">Add</button>
-                    </li>
-                </ul>
-            </form>
-        </div>
+<div class="add-offer">
+    <div class="add-offer-container">
+        <h1>
+            Add new offer
+        </h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <ul>
+                <li>
+                    <h1 class="text-label-form">Title</h1>
+                    <span>
+                        {{ form.title }} 
+                    </span>
+                </li>
+                <li>
+                    <h1 class="text-label-form">Description</h1>
+                    <span>
+                        {{ form.description }}
+                    </span>
+                </li>
+                <li>
+                    <h1 class="text-label-form">Spent</h1>
+                    <span>
+                        {{ form.spent }}
+                    </span>
+                </li>
+                <li>
+                    <h1 class="text-label-form">Tags</h1>
+                    <span>
+                        {{ form.tags }}
+                    </span>
+                </li>
+                <li>
+                    <h1 class="text-label-form">Date end</h1>
+                    <span>
+                        {{ form.date_end }} 
+                    </span>
+                </li>
+                <li style="display: flex; justify-content: center; align-items: center; padding: 40px;">
+                    <button class="btn-form" type="submit">Add</button>
+                </li>
+            </ul>
+        </form>
     </div>
-</main>
-
-<div class="wrapper-bg"></div>
+</div>
 {% endblock %}

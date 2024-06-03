@@ -1,0 +1,75 @@
+.offer-view{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.offer-view-container{
+    background-color: #3F89B4;
+    padding: 26px 32px;
+    border-radius: 22px;
+    max-width: 1200px;
+    width: 80%;
+    border: 1px solid #fff;
+}
+.offer-view-container h1{
+    color: white;
+    font-size: 40px;
+    font-weight: 600;
+}
+.offer-view .offer-description{
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #499ac9;
+    font-size: 24px;
+    color: white;
+    font-weight: 600;
+}
+.offer-view .offer-team {
+    display: flex;
+}
+.offer-view .offer-team .offer-team__user{
+    background-color: #5098c2;
+    margin: 10px;
+    font-size: 15px;
+    padding: 10px 25px 10px 25px;
+    color: white;
+    border-radius: 20px;
+}
+.offer-chat{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.offer-view-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.offer-view__status{
+    
+}
+.offer-view__launched{
+    color: #3F89B4;
+    font-size: 20px;
+    background-color: #ffffff;
+    padding: 10px 20px 10px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+}
+.offer-control{
+    display: flex;
+    padding: 30px;
+    background-color: 0;
+    display: flex;
+    justify-content: center;
+}
+.offer-btn-complete{
+    color: #ffffff;
+    font-size: 20px;
+    background-color: #3fb449;
+    border: 2px solid white;
+    padding: 10px 20px 10px 20px;
+    border-radius: 50px;
+    font-weight: 700; 
+}

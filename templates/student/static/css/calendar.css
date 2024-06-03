@@ -1,0 +1,32 @@
+.calendar-block__list_item--none {
+    background-color: #f1f1f1;
+    color: #2c2c2c;
+}
+.calendar-block__list_item--green {
+    background-color: #4fff5e;
+    color: #2c2c2c;
+}
+.calendar-block__list_item--red{
+    background-color: #ff4f4f;
+    color: white;
+}
+.calendar-block__list_item--yellow{
+    background-color: #ffd84f;
+    color: white;
+}
+.calendar-block__list_item--gray{
+    background-color: rgb(206, 206, 206);
+}
+.calendar-block__list_item--default {
+    background-color:  white;
+    color: rgb(39, 39, 39);
+}
+.calendar-navigation a{
+    background-color: white;
+    color: #3f89b4;
+    font-size: 23px;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 10px 30px 10px 30px;
+    margin-right: 10px;
+}

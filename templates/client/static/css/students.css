@@ -1,0 +1,54 @@
+.filter__calendar{
+    background-color: #3b7ba0;
+    border: none;
+    padding: 8px 20px 8px 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 21px;
+}
+
+.filter-block{
+    width: 1157px;
+    margin-top: 20px;
+    background-color: #3F89B4;
+    padding: 10px;
+}
+
+.filter-block select{
+    background-color: #3b7ba0;
+    font-size: 21px;
+    font-weight: 600;
+    color: white;
+    padding: 20px 10px 20px 10px;
+    border: none;
+    border-radius: 50px;
+}
+.filter-block select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+.filter-block select option{
+    background-color: #3b7ba0;
+}
+
+.hidden {
+  display: none;
+}
+
+#content {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #3F89B4;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+}
+
+.btn-filter{
+    background-color: #3b7ba0;
+    border: none;
+    font-size: 21px;
+    color: white;
+    padding: 12px 20px 12px 20px;
+    border-radius: 50px;
+    border: 1px solid white;
+}

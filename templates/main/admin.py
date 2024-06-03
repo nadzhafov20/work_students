@@ -124,7 +124,7 @@ class MyUserAdmin(UserAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj and obj.role == 'student':
-            return ('user_id_key', 'about', 'time_zone', 'price_hour', 'hours_per_week', 'qualification', 'balance', 'address', 'last_login', 'date_joined', 'role', 'email', 'phone_number',) #email_verified
+            return ('user_id_key', 'about', 'time_zone', 'price_hour', 'hours_per_week', 'balance', 'address', 'last_login', 'date_joined', 'role', 'email', 'phone_number',) #email_verified, qualification
         if obj and obj.role == 'client':
             return ('user_id_key', )
         else:

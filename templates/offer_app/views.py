@@ -3,8 +3,11 @@ from offer_app.models import RatesOfferModel, OffersModel, MessagesOfferModel
 from .forms import RateForm, MessagesOfferForm
 from main.models import MyUser
 from django.http import JsonResponse
+from utils.decorators import user_is_authenticated, email_verified_required
 
 
+@user_is_authenticated
+@email_verified_required
 def offer_detail(request, offer_id):
     offer = get_object_or_404(OffersModel, pk=offer_id)
     rates = RatesOfferModel.objects.filter(offer=offer)
@@ -43,6 +46,8 @@ def offer_detail(request, offer_id):
     return render(request, 'offer/offer_detail.html', {'offer': offer, 'rates': rates, 'user': user, 'form': form, 'user_rate_exists':user_rate_exists})
 
 
+@user_is_authenticated
+@email_verified_required
 def select_rate(request, rate_id):
     rate = get_object_or_404(RatesOfferModel, id=rate_id)
     offer = rate.offer
@@ -55,6 +60,8 @@ def select_rate(request, rate_id):
     return redirect('offer_detail', offer_id=offer.id)
 
 
+@user_is_authenticated
+@email_verified_required
 def offer_view(request, offer_id):
     offer = get_object_or_404(OffersModel, id=offer_id)
     user = request.user
@@ -71,8 +78,14 @@ def offer_view(request, offer_id):
         form_message = MessagesOfferForm()
     
     messages = MessagesOfferModel.objects.filter(offer=offer)
+    context = {
+        'offer':offer,
+        'user':user,
+        'form_message':form_message,
+        'messages':messages
+    }
 
-    return render(request, 'offer/offer_view.html', {'offer':offer,'user':user,'form_message':form_message, 'messages':messages})
+    return render(request, 'offer/offer_view.html', context)
 
 def api_client_offer_status(request, offer_id):
     print(f"OFFER DELETE {offer_id}")

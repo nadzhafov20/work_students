@@ -1,0 +1,82 @@
+.ad-container{
+    background-color: 0;
+    position: relative;
+    display: none;
+}
+.ad-close-button{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+.ad-close-button:hover{
+    color: black;
+}
+
+
+.ad-type_homepage{
+    position: relative;
+    width: 300px;
+    height: 500px;
+    overflow: hidden;
+}
+
+.ad-type_bottom{
+    position: fixed;
+    bottom: 0px;
+    left: 3%;
+    width: 94%;
+    height: 100px;
+    overflow: hidden;
+}
+
+.ad-type_block{
+    width: 100%;
+    height: 350px;
+    border-radius: 24px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.ad-type_popup{
+    background-color: green;
+}
+
+.ad-type_profile{
+    margin: 20px;
+    width: 100%;
+}
+
+.ad-type_header{
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+}
+
+.ad-type_right{
+    width: 50px;
+}
+
+.ad-type__sticky{
+    position: fixed;
+    top: 50%;
+    right: 10px;
+
+    overflow: hidden;
+}
+
+
+.ad-popup{
+    position: fixed;
+    width: 500px;
+    height: 600px;
+    z-index: 22;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.ad-popup img{
+    width: 100%;
+}
