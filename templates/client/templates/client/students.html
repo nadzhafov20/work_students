@@ -11,260 +11,108 @@
 
 {% block styles %}
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-{% endblock %}
-
-{% block scripts %}
-
+<link rel="stylesheet" href="{% static 'css/students.css' %}">
 {% endblock %}
 
 {% block content %}
-<main class="main">
-    <section class="offer">
-        <div class="container">
-            <div class="offer__inner">
-                <div class="offer__action">
-                    <button class="offer-filter btn-reset" id="toggleButton" onclick="toggleDiv()">
-                        <img src="{% static 'img/filter.svg' %}" alt="">
-                        <p>Filter</p>
-                    </button>
+<section class="offer">
+    <div class="container">
+        <div class="offer__inner">
+            <div class="offer__action">
+                <button class="offer-filter btn-reset" id="toggleButton" onclick="toggleDiv()">
+                    <img src="{% static 'img/filter.svg' %}" alt="">
+                    <p>Filter</p>
+                </button>
 
-                    <div class="offer__user">
-                        <div class="offer__user-name">{{ user.first_name }} {{ user.last_name }}</div>
-                        {% if user.image %}
-                            <img src="{{ user.image.url }}" alt="">
-                        {% else %}
-                            <img src="{% static 'img/user-profile.svg' %}" alt="">
-                        {% endif %}
-                    </div>
+                <div class="offer__user">
+                    <div class="offer__user-name">{{ user.first_name }} {{ user.last_name }}</div>
+                    {% if user.image %}
+                        <img src="{{ user.image.url }}" alt="">
+                    {% else %}
+                        <img src="{% static 'img/user-profile.svg' %}" alt="">
+                    {% endif %}
                 </div>
+            </div>
 
-                <div class="filter-block hidden" id="content">
-                    <select id="qualificationSelect">
-                        <option value="">All qualification</option>
-                        {% for qualification in qualifications %}
-                            <option value="{{ qualification.id }}">{{ qualification.name }}</option>
-                        {% endfor %}
-                    </select>
-                
-                    <select id="skillSelect">
-                        <option value="">All skills</option>
-                        {% for skill in skills %}
-                            <option value="{{ skill.id }}">{{ skill.name }}</option>
-                        {% endfor %}
-                    </select>
+            <div class="filter-block hidden" id="content">
+                <select id="qualificationSelect">
+                    <option value="">All qualification</option>
+                    {% for qualification in qualifications %}
+                        <option value="{{ qualification.id }}">{{ qualification.name }}</option>
+                    {% endfor %}
+                </select>
+            
+                <select id="skillSelect">
+                    <option value="">All skills</option>
+                    {% for skill in skills %}
+                        <option value="{{ skill.id }}">{{ skill.name }}</option>
+                    {% endfor %}
+                </select>
 
-                    <input type="date" class="filter__calendar" id="startDate" placeholder="С 02.11.2021">
-                    <input type="date" class="filter__calendar" id="endDate" placeholder="По 11.10.2022">
+                <input type="date" class="filter__calendar" id="startDate" placeholder="С 02.11.2021">
+                <input type="date" class="filter__calendar" id="endDate" placeholder="По 11.10.2022">
 
-                    <button id="filterButton" class="btn-filter">Start</button>
-                </div>
+                <button id="filterButton" class="btn-filter">Start</button>
+            </div>
 
-                <div class="offer__search">
-                    <input type="text" class="input-reset" placeholder="Search for jobs">
-                </div>
+            <div class="offer__search">
+                <input type="text" class="input-reset" placeholder="Search for jobs">
+            </div>
 
-                <div class="info-user">
-                    {% if students %}
-                        {% for student in students %}
-                        <div class="info-user__block" data-qualification-id="{{ student.qualification.id }}" data-skill-ids="{% for skill in student.skils.all %}{{ skill.id }},{% endfor %}">
-                            <button class="btn-close btn-reset">
-                                <img src="{% static 'img/close.svg' %}" alt="">
-                            </button>
-    
-                            <div class="info-user__block-av">
-                                {% if student.image %}
-                                    <img src="{{ student.image.url }}" alt="">
-                                {% else %}
-                                    <img src="{% static 'img/user-profile.svg' %}" alt="">
-                                {% endif %}
-                            </div>
-    
-                            <div class="info_name">{{ student.first_name }} {{ student.last_name }}</div>
-    
-                            <div class="info_profile">{{ student.qualification.name }}</div>
-    
-                            <ul class="info__skills">
-                                {% for skill in student.skils.all %}
-                                <li class="info__skills-item">
-                                    <p>{{ skill.name }}</p>
-                                </li>
-                                {% endfor %}
-                            </ul>
-    
-                            <div class="info__price">
-                                <span>{{ student.price_hour }}$/hour</span>
-                            </div>
-    
-                            <div class="info__text">
-                                <p>
-                                    {{ student.about }}
-                                </p>
-    
-                                <div class="info__text-action">
-                                    <button>
-                                        <a class="btn-reset" href="{% url 'student_public_view' username=student.username %}" >View portfolio</a>
-                                    </button>
-                                    <button class="btn-reset">Offer a job</button>
-                                </div>
+            <div class="info-user">
+                {% if students %}
+                    {% for student in students %}
+                    <div class="info-user__block" data-qualification-id="{{ student.qualification.id }}" data-skill-ids="{% for skill in student.skils.all %}{{ skill.id }},{% endfor %}">
+                        <button class="btn-close btn-reset">
+                            <img src="{% static 'img/close.svg' %}" alt="">
+                        </button>
+
+                        <div class="info-user__block-av">
+                            {% if student.image %}
+                                <img src="{{ student.image.url }}" alt="">
+                            {% else %}
+                                <img src="{% static 'img/user-profile.svg' %}" alt="">
+                            {% endif %}
+                        </div>
+
+                        <div class="info_name">{{ student.first_name }} {{ student.last_name }}</div>
+
+                        <div class="info_profile">{{ student.qualification.name }}</div>
+
+                        <ul class="info__skills">
+                            {% for skill in student.skils.all %}
+                            <li class="info__skills-item">
+                                <p>{{ skill.name }}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                        <div class="info__price">
+                            <span>{{ student.price_hour }}$/hour</span>
+                        </div>
+
+                        <div class="info__text">
+                            <p>
+                                {{ student.about }}
+                            </p>
+
+                            <div class="info__text-action">
+                                <button>
+                                    <a class="btn-reset" href="{% url 'student_public_view' username=student.username %}" >View portfolio</a>
+                                </button>
+                                <button class="btn-reset">Offer a job</button>
                             </div>
                         </div>
-                        {% endfor %}
-                    {% else %}
-                        <h1>Not found</h1>
-                    {% endif %}
                     </div>
+                    {% endfor %}
+                {% else %}
+                    <h1>Not found</h1>
+                {% endif %}
                 </div>
             </div>
         </div>
-    </section>
-
-
-<style>
-.filter__calendar{
-    background-color: #3b7ba0;
-    border: none;
-    padding: 8px 20px 8px 20px;
-    color: white;
-    font-weight: 600;
-    font-size: 21px;
-}
-
-.filter-block{
-    width: 1157px;
-    margin-top: 20px;
-    background-color: #3F89B4;
-    padding: 10px;
-}
-
-.filter-block select{
-    background-color: #3b7ba0;
-    font-size: 21px;
-    font-weight: 600;
-    color: white;
-    padding: 20px 10px 20px 10px;
-    border: none;
-    border-radius: 50px;
-}
-.filter-block select:focus {
-  outline: none;
-  border-color: #4CAF50;
-}
-.filter-block select option{
-    background-color: #3b7ba0;
-}
-
-.hidden {
-  display: none;
-}
-
-#content {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #3F89B4;
-  border: 1px solid #ffffff;
-  border-radius: 5px;
-}
-
-.btn-filter{
-    background-color: #3b7ba0;
-    border: none;
-    font-size: 21px;
-    color: white;
-    padding: 12px 20px 12px 20px;
-    border-radius: 50px;
-    border: 1px solid white;
-}
-</style>
-
-
-<script>
-    function applyFilter() {
-        var qualificationId = document.getElementById("qualificationSelect").value;
-        var skillId = document.getElementById("skillSelect").value;
-        var startDate = document.getElementById("startDate").value;
-        var endDate = document.getElementById("endDate").value;
-
-        var url = '/client/students/?';
-
-        if (qualificationId) {
-            url += 'qualification=' + encodeURIComponent(qualificationId) + '&';
-        }
-        if (skillId) {
-            url += 'skill=' + encodeURIComponent(skillId) + '&';
-        }
-        if (startDate) {
-            url += 'start_date=' + encodeURIComponent(startDate) + '&';
-        }
-        if (endDate) {
-            url += 'end_date=' + encodeURIComponent(endDate) + '&';
-        }
-
-        if (url.endsWith('&')) {
-            url = url.slice(0, -1);
-        }
-
-        window.location.href = url;
-    }
-
-    document.getElementById("filterButton").addEventListener("click", applyFilter);
-</script>
-
-
-<script>
-function toggleDiv() {
-  var content = document.getElementById("content");
-  content.classList.toggle("hidden");
-}
-</script>
-
-
-
-
-
-
-
-<footer class="footer">
-    <div class="container">
-        <div class="footer__inner">
-            <ul class="footer__list list-reset">
-                <li class="footer__list-item">
-                    <a href="#!" class="footer__list-link">About Us</a>
-                </li>
-
-                <li class="footer__list-item">
-                    <a href="#!" class="footer__list-link">Community</a>
-                </li>
-            </ul>
-
-            <ul class="footer__list list-reset">
-                <li class="footer__list-item">
-                    <a href="#!" class="footer__list-link">Cookie Policy</a>
-                </li>
-
-                <li class="footer__list-item">
-                    <a href="#!" class="footer__list-link">Help & Support</a>
-                </li>
-            </ul>
-
-            <ul class="footer__list list-reset">
-                <li class="footer__list-item">
-                    <a href="#!" class="footer__list-link">Terms of Service</a>
-                </li>
-
-                <li class="footer__list-item">
-                    <a href="#!" class="footer__list-link">Privacy Policy</a>
-                </li>
-
-                <li class="footer__list-item">
-                    <a href="#!" class="footer__list-link">Cookie Settings</a>
-                </li>
-            </ul>
-        </div>
     </div>
-</footer>
-
-<div class="wrapper-bg"></div>
-</div>
+</section>
 
 <script defer>
 const infoUserBlock = document.querySelectorAll('.info-user__block');
@@ -284,4 +132,9 @@ infoUserBlock.forEach(function (UserBlock) {
 });
 
 </script>
+
+<script src="{% static 'js/students.js' %}"></script>
+
+
+
 {% endblock %}

@@ -1,0 +1,10 @@
+{% load static %}
+
+{% for ad in ads %}
+<div class="ad-container ad-type_header" id="{{ ad.id }}" data-ad-id="{{ ad.id }}" data-timer="{{ ad.timer }}">
+    <div class="ad-close-button" onclick="closeAd(this.parentElement, '{{ ad.id }}', '{{ ad.timer }}')">✖</div>
+        <a href="{{ ad.link }}">
+            <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+        </a>
+</div>
+{% endfor %}

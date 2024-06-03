@@ -22,3 +22,8 @@ class OffersModelForm(forms.ModelForm):
             offer.save()
             self.save_m2m()
         return offer
+    
+class PersonalinfoSettingForm(forms.ModelForm):
+    class Meta:
+        model = MyUser
+        fields = ('address', 'time_zone')

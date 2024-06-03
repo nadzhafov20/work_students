@@ -1,0 +1,33 @@
+.block-works {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+
+.block-work {
+    width: 350px;
+    height: 350px;
+    border: 5px solid #2a6181;
+    border-radius: 10px;
+    background-color: #2a6181;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.block-work img {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    display: none;
+}
+
+.block-work {
+    background-size: cover;
+    background-position: center;
+}

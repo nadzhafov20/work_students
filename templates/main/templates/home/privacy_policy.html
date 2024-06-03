@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    Cookie Policy
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="information">
+        <h2>Privacy Policy</h2>
+        <p>At <strong>[Platform Name]</strong>, we take your privacy seriously. This Privacy Policy describes how we collect, use, and disclose your personal information when you use our website and services.</p>
+        <h3>Information We Collect</h3>
+        <p>We may collect various types of information from you, including:</p>
+        <ul>
+            <li>Personal Information such as your name, email address, and phone number, which you provide to us when creating an account or using our services.</li>
+            <li>Usage Information such as your IP address, browser type, and device identifiers, which we collect automatically when you use our platform.</li>
+            <li>Cookies and similar tracking technologies, which we use to enhance your experience and personalize content on our platform.</li>
+        </ul>
+        <h3>How We Use Your Information</h3>
+        <p>We may use your information to:</p>
+        <ul>
+            <li>Provide and maintain our services.</li>
+            <li>Communicate with you about your account and updates to our platform.</li>
+            <li>Personalize your experience and deliver targeted content and advertisements.</li>
+            <li>Analyze usage trends and improve our platform.</li>
+        </ul>
+        <h3>Disclosure of Your Information</h3>
+        <p>We may disclose your information to third parties, including:</p>
+        <ul>
+            <li>Service providers who assist us in operating our platform and providing our services.</li>
+            <li>Legal and regulatory authorities when required by law or to protect our rights and interests.</li>
+            <li>Third parties in connection with a merger, acquisition, or sale of assets.</li>
+        </ul>
+        <p>For more details on how we collect, use, and disclose your information, please read our full Privacy Policy.</p>
+        <p>By using our platform, you consent to the collection, use, and disclosure of your personal information as described in this Privacy Policy.</p>    
+    </section>
+</div>
+{% endblock %}

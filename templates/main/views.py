@@ -7,7 +7,9 @@ from django.template.loader import render_to_string
 import secrets
 from main.models import MyUser
 from django.http import HttpResponse
-
+from .utils.statistics import technology_statistics
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 def index(request):
     if request.user.is_authenticated:
@@ -16,7 +18,8 @@ def index(request):
                 return redirect('student_offers')
             elif request.user.role == 'client':
                 return redirect('client_students')
-    return render(request, 'home/index.html')
+    context = technology_statistics()
+    return render(request, 'home/index.html', context)
 
 def choose_role(request):
     if request.user.is_authenticated:
@@ -46,6 +49,14 @@ def login_view(request):
             elif request.user.role == 'client':
                 return redirect('student_profile')
     return render(request, 'home/login.html', {'form': form})
+
+@login_required
+def close_account(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('login')
+    else:
+        return redirect('student_profile')
 
 def register_student(request):
     if request.method == 'POST':
@@ -116,3 +127,9 @@ def help_support(request):
 
 def cookie_settings(request):
     return render(request, 'home/cookie_settings.html')
+
+def terms_of_service(request):
+    return render(request, 'home/terms_of_service.html')
+
+def privacy_policy(request):
+    return render(request, 'home/privacy_policy.html')

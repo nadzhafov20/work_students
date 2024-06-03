@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    Выбор роли
+    Choose role
 {% endblock title %}
 
 {% block header %}
@@ -11,53 +11,49 @@
 {% endblock %}
 
 {% block content %}
-<main class="main">
-    <section class="welcome">
-        <div class="container">
-            <div class="welcome__inner">
-                <h2 class="welcome-title">Hello. Who are you?</h2>
+<section class="welcome">
+    <div class="container">
+        <div class="welcome__inner">
+            <h2 class="welcome-title">Hello. Who are you?</h2>
 
-                <div class="welcome-checkbox">
-                    <label onclick="window.location.href='/register/student'">
-                        <div class="welcome-checkbox__block">
-                            <div class="welcome-checkbox__block-icon">
-                                <img src="{% static 'img/check-1.svg' %}" alt="">
-                            </div>
-
-                            <p class="welcome-checkbox__block-subtitle">
-                                I’m a student, looking for work and internship
-                            </p>
-
-                            <span class="check-choose">
-                                <input type="checkbox" class="def-checkbox">
-                                <div class="check-user"></div>
-                            </span>
+            <div class="welcome-checkbox">
+                <label onclick="window.location.href='/register/student'">
+                    <div class="welcome-checkbox__block">
+                        <div class="welcome-checkbox__block-icon">
+                            <img src="{% static 'img/check-1.svg' %}" alt="">
                         </div>
-                    </label>
 
-                    <label onclick="window.location.href='/register/client'">
-                        <div class="welcome-checkbox__block">
-                            <div class="welcome-checkbox__block-icon">
-                                <img src="{% static 'img/check-2.svg' %}" alt="">
-                            </div>
+                        <p class="welcome-checkbox__block-subtitle">
+                            I’m a student, looking for work and internship
+                        </p>
 
-                            <p class="welcome-checkbox__block-subtitle">
-                                I’m a client, hiring for a project
-                            </p>
+                        <span class="check-choose">
+                            <input type="checkbox" class="def-checkbox">
+                            <div class="check-user"></div>
+                        </span>
+                    </div>
+                </label>
 
-                            <span class="check-choose">
-                                <input type="checkbox" class="def-checkbox">
-                                <div class="check-user"></div>
-                            </span>
+                <label onclick="window.location.href='/register/client'">
+                    <div class="welcome-checkbox__block">
+                        <div class="welcome-checkbox__block-icon">
+                            <img src="{% static 'img/check-2.svg' %}" alt="">
                         </div>
-                    </label>
-                </div>
 
-                <p class="welcome-muted" onclick="window.location.href='/login'">Already have an account? Log in</p>
+                        <p class="welcome-checkbox__block-subtitle">
+                            I’m a client, hiring for a project
+                        </p>
+
+                        <span class="check-choose">
+                            <input type="checkbox" class="def-checkbox">
+                            <div class="check-user"></div>
+                        </span>
+                    </div>
+                </label>
             </div>
-        </div>
-    </section>
-</main>
 
-<div class="wrapper-bg"></div>
+            <p class="welcome-muted" onclick="window.location.href='/login'">Already have an account? Log in</p>
+        </div>
+    </div>
+</section>
 {% endblock content %}

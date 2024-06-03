@@ -16,8 +16,7 @@
             <div class="form__inner">
                 <form action="{% url 'register_client' %}" method="post" class="user-form user-client">
                     {% csrf_token %}
-                    {{ form.non_field_errors }
-                }
+                    {{ form.non_field_errors }}
                     <h2 class="user-form-title">Form "Client"</h2>
 
                     <div class="user-form__content">
@@ -49,10 +48,12 @@
                 
                         <label class="pass">
                             <p>Password</p>
-                            {{ form.password }}
-                            <span class="pass-btn">
-                                <img src="{% static 'img/pass-view.svg' %}" alt="">
-                            </span>
+                            <div class="pass-content">
+                                {{ form.password }}
+                                <span class="pass-btn">
+                                    <img src="{% static 'img/pass-view.svg' %}" alt="">
+                                </span>
+                            </div>
                             {{ form.password.errors }}
                         </label>
                     </div>

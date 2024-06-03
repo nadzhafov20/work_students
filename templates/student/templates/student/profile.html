@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load ad_tags %}
 
 {% block title %}
     My Profile
@@ -10,204 +10,174 @@
     {% include 'home/header.html' with user=user %}
 {% endblock header %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
 {% block content %}
-<main class="main">
-    <section class="portfolio">
-        <div class="container">
-            <div class="portfolio__inner">
-                <div class="portfolio-top">
-                    <div class="start">
-                        <div class="portfolio-user">
-                            <div class="start">
-                                {% if user.image %}
-                                    <img src="{{ user.image.url }}" style="border-radius: 50%;" class="user" alt="">
-                                {% else %}
-                                    <img src="{% static 'img/user-profile.svg' %}" class="user" alt="">
-                                {% endif %}
-                            </div>
-
-                            <div class="end">
-                                <h2 class="portfolio-user-name">{{ user.first_name }} {{ user.last_name }}</h2>
-
-                                <h2 class="portfolio-user-location">
-                                    <img src="{% static 'img/location.svg' %}" alt="">
-                                    <span>{{ user.address }} – {{ current_time_user_tz }} local time</span>
-                                </h2>
-                            </div>
+<section class="portfolio">
+    <div class="container">
+        <div class="portfolio__inner">
+            <div class="portfolio-top">
+                <div class="start">
+                    <div class="portfolio-user">
+                        <div class="start">
+                            {% if user.image %}
+                                <img src="{{ user.image.url }}" style="border-radius: 50%;" class="user" alt="">
+                            {% else %}
+                                <img src="{% static 'img/user-profile.svg' %}" class="user" alt="">
+                            {% endif %}
                         </div>
-                    </div>
 
-                    <div class="end-btns">
-                        <button class="btn-reset portfolio-top-btn btn-public" onclick="window.location.href='{% url "student_public_view" username=user.username %}'">See public view</button>
-                        <button class="btn-reset portfolio-top-btn btn-settings" onclick="window.location.href='/student/settings'">Profile settings</button>
+                        <div class="end">
+                            <h2 class="portfolio-user-name">{{ user.first_name }} {{ user.last_name }}</h2>
+
+                            <h2 class="portfolio-user-location">
+                                <img src="{% static 'img/location.svg' %}" alt="">
+                                <span>{{ user.address }} – {{ current_time_user_tz }} local time</span>
+                            </h2>
+                        </div>
                     </div>
                 </div>
 
-                <div class="portfolio-content">
-                    <div class="portfolio-content-left">
-                        <ul class="portfolio-content__list">
-                            <li class="portfolio-content__list-title">
-                                <a href="#!">Video introduction</a>
-                            </li>
-                        </ul>
+                <div class="end-btns">
+                    <button class="btn-reset portfolio-top-btn btn-public" onclick="window.location.href='{% url "student_public_view" username=user.username %}'">See public view</button>
+                    <button class="btn-reset portfolio-top-btn btn-settings" onclick="window.location.href='/student/settings'">Profile settings</button>
+                </div>
+            </div>
 
-                        <ul class="portfolio-content__list">
-                            <li class="portfolio-content__list-title">
-                                <a href="#!">Hours per week</a>
-                            </li>
-                            
+            <div class="portfolio-content">
+                <div class="portfolio-content-left">
+                    <ul class="portfolio-content__list">
+                        <li class="portfolio-content__list-title">
+                            <a href="#!">Video introduction</a>
+                        </li>
+                        <li class="portfolio-content__list-subtitle">
+                            {% if student.video %}
+                            <video width="320" height="240" controls>
+                                <source src="{{ student.video_introduction.url }}" type="video/mp4">
+                                Ваш браузер не поддерживает HTML5 видео.
+                            </video>
+                            {% else %}
+                            {% endif %}
+                        </li>
+
+                    </ul>
+
+                    <ul class="portfolio-content__list">
+                        <li class="portfolio-content__list-title">
+                            <a href="#!">Hours per week</a>
+                        </li>
+                        
+                        <li class="portfolio-content__list-subtitle">
+                            <span>Hours per week</span>
+                        </li>
+
+                        <li class="portfolio-content__list-muted">
+                            {% if user.hours_per_week %}
+                                <span>{{ user.hours_per_week }}  Hours</span>
+                            {% else %}
+                                <span>No contract-to-hire preference set</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+
+                    <ul class="portfolio-content__list">
+                        <li class="portfolio-content__list-title">
+                            <a href="#!">Languages</a>
+                        </li>
+                        {% for language in languages %}
                             <li class="portfolio-content__list-subtitle">
-                                <span>Hours per week</span>
+                                <span>{{ language.language }}  {{ language.level }}</span>
                             </li>
+                        {% endfor %}
+                    </ul>
 
-                            <li class="portfolio-content__list-muted">
-                                {% if user.hours_per_week %}
-                                    <span>{{ user.hours_per_week }}  Hours</span>
-                                {% else %}
-                                    <span>No contract-to-hire preference set</span>
-                                {% endif %}
-                            </li>
-                        </ul>
+                    <ul class="portfolio-content__list">
+                        <li class="portfolio-content__list-title">
+                            <a href="#!">Education</a>
+                        </li>
+                        {% for education in educations %}
+                        <li class="portfolio-content__list-subtitle">
+                            <span>{{ education.text }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="portfolio-content__list">
+                        <li class="portfolio-content__list-title">
+                            {% display_ad placement='profile' %}
+                        </li>
+                    </ul>
+                </div>
 
-                        <ul class="portfolio-content__list">
-                            <li class="portfolio-content__list-title">
-                                <a href="#!">Languages</a>
-                            </li>
+                <div class="portfolio-content-right">
+                    <div class="content-info">
+                        <div class="top">
+                            <button class="btn-reset btn-design">
+                                <h2>{{ user.qualification.name }}</h2>
+                            </button>
 
-                            <li class="portfolio-content__list-subtitle">
-                                <span>English: Basic</span>
-                            </li>
-
-                            <li class="portfolio-content__list-subtitle">
-                                <span>Ukrainian: Native or Bilingual</span>
-                            </li>
-                        </ul>
-
-                        <ul class="portfolio-content__list">
-                            <li class="portfolio-content__list-title">
-                                <a href="#!">Education</a>
-                            </li>
-                            {% for education in educations %}
-                            <li class="portfolio-content__list-subtitle">
-                                <span>{{ education.text }}</span>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                    <div class="portfolio-content-right">
-                        <div class="content-info">
-                            <div class="top">
-                                <button class="btn-reset btn-design">
-                                    <h2>{{ user.qualification.name }}</h2>
-                                </button>
-
-                                <span class="btn-price">
-                                    <h2>${{ user.price_hour}}/hr </h2>
-                                </span>
-                            </div>
-
-                            <div class="info">
-                                <h2 class="dev-info">
-                                    {{ user.about }}
-                                </h2>
-
-                                <button class="btn-reset btn-developer">
-                                </button>
-                            </div>
+                            <span class="btn-price">
+                                <h2>${{ user.price_hour}}/hr </h2>
+                            </span>
                         </div>
 
-                        <div class="content-info">
-                            <div class="top">
-                                <button class="btn-reset btn-design btn-port" onclick="window.location.href='/student/portfolio'">
-                                    <h2>Portfolio</h2>
-                                    <img src="{% static 'img/plus.svg' %}" alt="">
-                                </button>
-                            </div>
+                        <div class="info">
+                            <h2 class="dev-info">
+                                {{ user.about }}
+                            </h2>
 
-                            <div class="calendar__inner image-upload-user">
-                                <div class="start">
-                                    <div class="image-upload-user">
-                                        {% if portfolio %}
-                                            <div class="block-works">
-                                                {% for work in portfolio %}
-                                                <div class="block-work" style="background-image: url('{{ work.photo.url }}');"></div>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                        <img src="{% static 'img/wind.svg' %}" alt="">
+                            <button class="btn-reset btn-developer">
+                            </button>
+                        </div>
+                    </div>
 
-                                        <p class="image-upload-subtitle">Showcase your work to win more projects
-                                        </p>
-                                        <p class="image-upload-subtitle">Add items to impress clients</p>
-                                        {% endif %}
-                                    </div>
+                    <div class="content-info">
+                        <div class="top">
+                            <button class="btn-reset btn-design btn-port" onclick="window.location.href='/student/portfolio'">
+                                <h2 style="font-family: var(--font-family);font-weight: 500;font-size: 36px;color: #fff;">Portfolio</h2>
+                                <img src="{% static 'img/plus.svg' %}" alt="">
+                            </button>
+                        </div>
+
+                        <div class="calendar__inner image-upload-user">
+                            <div class="start">
+                                <div class="image-upload-user">
+                                    {% if portfolio %}
+                                        <div class="block-works">
+                                            {% for work in portfolio %}
+                                            <div class="block-work" style="background-image: url('{{ work.photo.url }}');"></div>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                    <img src="{% static 'img/wind.svg' %}" alt="">
+
+                                    <p class="image-upload-subtitle">Showcase your work to win more projects
+                                    </p>
+                                    <p class="image-upload-subtitle">Add items to impress clients</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="content-info">
-                            <div class="top">
-                                <button class="btn-reset btn-design">
-                                    <h2>Skills</h2>
-                                </button>
-                            </div>
-
-                            <ul class="user-skills__list">
-                                {% for skill in user.skils.all %}
-                                <li class="user-skills__list-item">{{ skill.name }}</li>
-                                {% endfor %}
-                            </ul>
+                    <div class="content-info">
+                        <div class="top">
+                            <button class="btn-reset btn-design">
+                                <h2>Skills</h2>
+                            </button>
                         </div>
+
+                        <ul class="user-skills__list">
+                            {% for skill in user.skils.all %}
+                            <li class="user-skills__list-item">{{ skill.name }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-</main>
+    </div>
+</section>
 
-
-<style>
-    .block-works {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 7px;
-    }
-
-    .block-work {
-        width: 350px;
-        height: 350px;
-        border: 5px solid #2a6181;
-        border-radius: 10px;
-        background-color: #2a6181;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
-
-    .block-work img {
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        max-width: none;
-        max-height: none;
-        display: none;
-    }
-
-    .block-work {
-        background-size: cover;
-        background-position: center;
-    }
-
-    .form-edu-control-input{
-        
-    }
-</style>
-
-{% include 'home/footer.html' %}
-
-<div class="wrapper-bg"></div>
 {% endblock %}

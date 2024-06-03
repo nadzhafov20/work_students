@@ -49,10 +49,12 @@
                 
                         <label class="pass">
                             <p>Password</p>
-                            {{ form.password }}
-                            <span class="pass-btn">
-                                <img src="{% static 'img/pass-view.svg' %}" alt="">
-                            </span>
+                            <div class="pass-content">
+                                {{ form.password }}
+                                <span class="pass-btn">
+                                    <img src="{% static 'img/pass-view.svg' %}" alt="">
+                                </span>
+                            </div>
                             {{ form.password.errors }}
                         </label>
                     </div>

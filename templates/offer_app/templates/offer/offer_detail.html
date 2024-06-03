@@ -15,137 +15,117 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/offer-v.css' %}">
+<link rel="stylesheet" href="{% static 'css/offer_detail.css' %}">
 {% endblock %}
 
 {% block content %}
-<main class="main">
-    <section class="offer-v">
-        <div class="container">
-            <div class="offer-v-block-info">
-                <div class="offer-v-header">
-                    <h1 class="offer-v-title">{{ offer.title }}</h1>
-                    <div class="offer-v-header__client">
-                        {% if offer.user_client.image %}
-                            <img src="{{ offer.user_client.image.url }}" alt="">
-                        {% else %}
-                            <img src="{% static 'img/user-profile.svg' %}" alt="">
-                        {% endif %}
-                        <span>{{ offer.user_client.first_name }} {{ offer.user_client.last_name }}</span>
-                    </div>
+<section class="offer-v">
+    <div class="container">
+        <div class="offer-v-block-info">
+            <div class="offer-v-header">
+                <h1 class="offer-v-title">{{ offer.title }}</h1>
+                <div class="offer-v-header__client">
+                    {% if offer.user_client.image %}
+                        <img src="{{ offer.user_client.image.url }}" alt="">
+                    {% else %}
+                        <img src="{% static 'img/user-profile.svg' %}" alt="">
+                    {% endif %}
+                    <span>{{ offer.user_client.first_name }} {{ offer.user_client.last_name }}</span>
                 </div>
-                <div class="offer-v-tags">
-                    {% for tag in offer.tags.all %}
-                        <span class="offer-v-tag">
-                            {{ tag.name }}
-                        </span>
-                    {% endfor %}
-                </div>
-                <div class="offer-v-description">
-                    <p>{{ offer.description }}</p>
-                </div>
-                <span>{{ offer.id }}</span>
             </div>
-            <div class="offer-v-block-control">
-                {% if user.role == 'student' %}
-                <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="offer-v-tags">
+                {% for tag in offer.tags.all %}
+                    <span class="offer-v-tag">
+                        {{ tag.name }}
+                    </span>
+                {% endfor %}
+            </div>
+            <div class="offer-v-description">
+                <p>{{ offer.description }}</p>
+            </div>
+        </div>
+        <div class="offer-v-block-control">
+            {% if user.role == 'student' %}
+            <div style="display: flex; justify-content: center; align-items: center;">
+                {% if offer.user_student %}
+                    <h1 style="font-size: 28px; color: white; font-weight: 600;">{{ offer.user_student.first_name }} {{ offer.user_student.last_name }} won the bet</h1>
+                {% else %}
                     {% if not user_rate_exists %}
                         <button class="offer-btn-rate">Place a bet</button>                
                     {% else %}
                         <h1 style="font-size: 28px; color: white; font-weight: 600;">You have already placed a bet</h1>
                     {% endif %}
-                </div>
-                <div style="display: flex;">
-                    {% if not user_rate_exists %}
-                    <form class="rate-form" method="post" style="display: none;">
-                        {% csrf_token %}
-                        {{ form.text }}
-                        <button type="submit">Submit Rate</button>
-                    </form>
-                    {% endif %}
-                </div>                
-                
-                {% elif user.role == 'client' and not offer.user_student %}
-                <form method="post" action="{% url 'api_client_offer_delete' offer.id %}">
-                    {% csrf_token %}
-                    <button class="delete-offer" type="submit">Delete</button>
-                </form>
                 {% endif %}
             </div>
-            <div class="offer-v-block-rates">
-                <div class="offer-v-block-rates__header">
-                    <h1>Rates</h1>
-                </div>
-                <div class="block-rates">
-                    {% if rates %}
-                        {% for rate in rates %}
-                        <div class="block-rate {% if offer.user_student and rate.student != offer.user_student %}block-rate__status_false{% endif %}">
-                            <div class="block-rate__header">
-                                <div class="block-rate__student">
-                                    {% if rate.student.image %}
-                                        <img src="{{ rate.student.image.url }}" alt="">
-                                    {% else %}
-                                        <img src="{% static 'img/user-profile.svg' %}" alt="">
-                                    {% endif %}
-                                    <span>{{ rate.student.first_name }} {{ rate.student.last_name }}</span>
-                                    <span class="student-qualific">{{ rate.student.qualification.name }}</span>
-                                </div>
-                                <div class="block-rate__info">
-                                    <span>{{ rate.date_add }}</span>
-                                </div>
-                            </div>
-                            <div class="block-rate__body">
-                                <span>{{ rate.text }}</span>
-                            </div>
-                            {% if rate.student == offer.user_student %}
-                            <div style="margin-top: 20px; margin-bottom: 20px; font-size: 23px; color: white; background-color: #40a547; padding: 10px;">
-                                winning rate
-                            </div>
-                            {% endif %}
-                            {% if user.role == 'client' %}
-                            <div class="block-rate__client-control">
-                                {% if offer.user_student %}
-                                <a class="select-rate" href="{% url 'offer_view' offer.id %}">Go to view</a>
+            <div style="display: flex;">
+                {% if not user_rate_exists %}
+                <form class="rate-form" method="post" style="display: none;">
+                    {% csrf_token %}
+                    {{ form.text }}
+                    <button type="submit">Submit Rate</button>
+                </form>
+                {% endif %}
+            </div>                
+            
+            {% elif user.role == 'client' and not offer.user_student %}
+            <form method="post" action="{% url 'api_client_offer_delete' offer.id %}">
+                {% csrf_token %}
+                <button class="delete-offer" type="submit">Delete</button>
+            </form>
+            {% endif %}
+        </div>
+        <div class="offer-v-block-rates">
+            <div class="offer-v-block-rates__header">
+                <h1>Rates</h1>
+            </div>
+            <div class="block-rates">
+                {% if rates %}
+                    {% for rate in rates %}
+                    <div class="block-rate {% if offer.user_student and rate.student != offer.user_student %}block-rate__status_false{% endif %}">
+                        <div class="block-rate__header">
+                            <div class="block-rate__student">
+                                {% if rate.student.image %}
+                                    <img src="{{ rate.student.image.url }}" alt="">
                                 {% else %}
-                                <form method="post" action="{% url 'select_rate' rate.id %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="select-btn select-rate">Select</button>
-                                </form>
+                                    <img src="{% static 'img/user-profile.svg' %}" alt="">
                                 {% endif %}
+                                <span>{{ rate.student.first_name }} {{ rate.student.last_name }}</span>
+                                <span class="student-qualific">{{ rate.student.qualification.name }}</span>
                             </div>
+                            <div class="block-rate__info">
+                                <span>{{ rate.date_add }}</span>
+                            </div>
+                        </div>
+                        <div class="block-rate__body">
+                            <span>{{ rate.text }}</span>
+                        </div>
+                        {% if rate.student == offer.user_student %}
+                        <div style="margin-top: 20px; margin-bottom: 20px; font-size: 23px; color: white; background-color: #40a547; padding: 10px;">
+                            winning rate
+                        </div>
+                        {% endif %}
+                        {% if user.role == 'client' %}
+                        <div class="block-rate__client-control">
+                            {% if offer.user_student %}
+                            <a class="select-rate" href="{% url 'offer_view' offer.id %}">Go to view</a>
+                            {% else %}
+                            <form method="post" action="{% url 'select_rate' rate.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="select-btn select-rate">Select</button>
+                            </form>
                             {% endif %}
                         </div>
-                        {% endfor %}
-                    {% else %}
-                        <h1>Not found</h1>
-                    {% endif %}
-                </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% else %}
+
+
+                {% endif %}
             </div>
         </div>
-    </section>
-</main>
-
-
-<style>
-    .select-rate{
-        background-color: #3a7799;
-        padding: 11px 30px 11px 30px;
-        font-size: 22px;
-        font-weight: 600;
-        border: none;
-        color: white;
-        border-radius: 10px;
-    }
-    .delete-offer{
-        background-color: #993a3a;
-        padding: 11px 70px 11px 70px;
-        font-size: 22px;
-        font-weight: 600;
-        border: none;
-        color: white;
-        border-radius: 10px;
-    }
-</style>
-
+    </div>
+</section>
 <script>
     $(document).ready(function(){
         $(".offer-btn-rate").click(function(){
@@ -153,6 +133,4 @@
         });
     });
 </script>
-
-<div class="wrapper-bg"></div>
 {% endblock %}
