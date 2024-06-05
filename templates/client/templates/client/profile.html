@@ -10,6 +10,15 @@
     {% include 'home/header.html' %}
 {% endblock %}
 
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/settings.js' %}"></script>
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/profile_settings.css' %}">
+{% endblock %}
+
 
 {% block content %}
 <div class="user-portfolio">
@@ -20,81 +29,58 @@
 
                 <ul class="dashboard__list">
                     <li class="dashboard__list-item">
-                        <a href="#!" class="dashboard__list-link">Get Paid</a>
+                        <a href="#contact-info" class="dashboard__list-link dashboard__list-block">Contact info</a>
                     </li>
 
                     <li class="dashboard__list-item">
-                        <a href="#!" class="dashboard__list-link">Password & Security</a>
+                        <a href="#get-paid" class="dashboard__list-link dashboard__list-block">Get Paid</a>
+                    </li>
+
+                    <li class="dashboard__list-item">
+                        <a href="#password-security" class="dashboard__list-link dashboard__list-block">Password & Security</a>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="section-tight">
-            <h2 class="section-tight-title">Contact info</h2>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="section-tight-block">
-                    <button class="btn-reset btn-req">
-                        <img src="./images/red.svg" alt="">
-                    </button>
-    
-                    <h2 class="account">Account</h2>
-    
-                    <div class="offer__user">
-                        <img src="{% static 'img/user-profile.svg' %}" alt="">
-                    </div>
-    
-                    <ul class="user__setting">
-                        <li class="user__setting-item">
-                            <h2>User ID</h2>
-                            <span>{{ user.user_id_key }}</span>
-                        </li>
-    
-                        <li class="user__setting-item">
-                            <h2>Name</h2>
-                            <span>{{ user.first_name }} {{ user.last_name }}</span>
-                        </li>
-    
-                        <li class="user__setting-item">
-                            <h2>Email</h2>
-                            <span>{{ user.email }}</span>
-                        </li>
-                    </ul>
-    
-                    <button class="btn-reset close-acc">Close my account</button>
+                <div id="password-security" class="section-right-container" style="display: none;">
+                    {% include 'client/settings/security.html' %}
                 </div>
-    
-                <div class="section-tight-block">
-                    <button type="submit" class="btn-reset btn-req">
-                        <img src="{% static 'img/red.svg' %}" alt="">
-                    </button>
-    
-                    <h2 class="account">Location</h2>
-    
-                    <ul class="user__setting">
-                        <li class="user__setting-item">
-                            <h2 for="id_qualification">Address:</h2>
-                            <span>
-                                {{ personal_info_form.address }}
-                            </span>
-                        </li>
-                        <li class="user__setting-item">
-                            <h2 for="id_qualification">Time zone:</h2>
-                            <span>
-                                {{ personal_info_form.time_zone }}
-                            </span>
-                        </li>
-                        <li class="user__setting-item">
-                            <h2>Phone</h2>
-                            <span>{{ user.phone_number }}</span>
-                        </li>
-                    </ul>
+                <div id="contact-info" class="section-right-container" style="display: block;">
+                    {% include 'client/settings/contact_info.html' %}
+                </div>
+                <div id="get-paid" class="section-right-container" style="display: none;">
+                    {% include 'client/settings/get_paid.html' %}
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+
+<script>
+    function logout() {
+        console.log('LOG OUT');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '{% url "close_account" %}', true);
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Logged out successfully');
+                    location.reload();
+                } else {
+                    console.error('Error logging out');
+                }
+            }
+        };
+        xhr.send();
+    }
+</script>
 
 <script defer>
 const infoUserBlock = document.querySelectorAll('.info-user__block');
