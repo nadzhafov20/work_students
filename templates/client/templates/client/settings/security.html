@@ -1,0 +1,22 @@
+{% load static %}
+
+<div class="section-right-block">
+    <h2 class="section-tight-title">Password & Security</h2>
+
+    <div class="section-tight-block">
+        <button class="btn-reset btn-req">
+            <img src="{% static 'img/red.svg' %}" alt="">
+        </button>
+
+        <h2 class="account">Password</h2>
+
+        <ul class="user__setting">
+            <li class="user__setting-item">
+                <h2>New password</h2>
+                <span>
+                    {{ personal_info_form.new_password }}
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

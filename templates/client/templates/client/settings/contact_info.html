@@ -1,0 +1,107 @@
+{% load static %}
+
+<h2 class="section-tight-title">Contact info</h2>
+
+<div class="section-tight-block">
+    <button class="btn-reset btn-req">
+        <img src="{% static 'img/red.svg' %}" alt="">
+    </button>
+
+    <h2 class="account">Account</h2>
+
+    <div class="offer__user">
+        {% if user.image %}
+        <img src="{{ user.image.url }}">
+        {% else %}
+            <img src="{% static 'img/user-profile.svg' %}" alt="">
+        {% endif %}
+        
+        {{ personal_info_form.image }}
+    </div>
+
+    <style>
+        input[type="file"]::-webkit-file-upload-button {
+            background-color: #5396bd;
+            color: #fff;
+            padding: 5px 10px;
+            border: none; 
+            border-radius: 20px; 
+            cursor: pointer;
+        }
+        
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #4788ad;
+        }
+    </style>
+
+    <ul class="user__setting">
+        <li class="user__setting-item">
+            <h2>User ID</h2>
+            <span>{{ user.user_id_key }}</span>
+        </li>
+
+        <li class="user__setting-item">
+            <h2>Name</h2>
+            <span>{{ user.first_name }} {{ user.last_name }}</span>
+        </li>
+
+        <li class="user__setting-item">
+            <h2>Email</h2>
+            <span>{{ user.email }}</span>
+        </li>
+    </ul>
+    
+    <button onclick="logout()" class="btn-reset close-acc" data-close-url="{% url 'close_account' %}" data-csrf-token="{{ csrf_token }}" type="button">Close my account</button>
+
+</div>
+
+<div class="section-tight-block" id="location-section">
+    <button class="btn-reset btn-req">
+        <img src="{% static 'img/red.svg' %}" alt="">
+    </button>
+
+    <h2 class="account">Location</h2>
+
+    <ul class="user__setting">
+        <li class="user__setting-item">
+            <h2 for="id_qualification">Address:</h2>
+            <span>
+                {{ personal_info_form.address }}
+            </span>
+        </li>
+        <li class="user__setting-item">
+            <h2 for="id_qualification">Time zone:</h2>
+            <span>
+                {{ personal_info_form.time_zone }}
+            </span>
+        </li>
+        <li class="user__setting-item">
+            <h2>Phone</h2>
+            <span>{{ user.phone_number }}</span>
+        </li>
+        <button type="submit" class="btn-reset btn-req">
+            <img src="{% static 'img/red.svg' %}" alt="">
+        </button>
+    </ul> 
+</div>
+
+
+<script>
+    function logout() {
+        console.log('LOG OUT');
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '{% url "close_account" %}', true);
+        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Logged out successfully');
+                    location.reload();
+                } else {
+                    console.error('Error logging out');
+                }
+            }
+        };
+        xhr.send();
+    }
+</script>

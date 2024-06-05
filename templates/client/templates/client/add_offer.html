@@ -16,9 +16,6 @@
 {% block content %}
 <div class="add-offer">
     <div class="add-offer-container">
-        <h1>
-            Add new offer
-        </h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <ul>
@@ -44,12 +41,6 @@
                     <h1 class="text-label-form">Tags</h1>
                     <span>
                         {{ form.tags }}
-                    </span>
-                </li>
-                <li>
-                    <h1 class="text-label-form">Date end</h1>
-                    <span>
-                        {{ form.date_end }} 
                     </span>
                 </li>
                 <li style="display: flex; justify-content: center; align-items: center; padding: 40px;">

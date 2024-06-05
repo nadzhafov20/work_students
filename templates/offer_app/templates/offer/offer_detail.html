@@ -70,7 +70,7 @@
             {% elif user.role == 'client' and not offer.user_student %}
             <form method="post" action="{% url 'api_client_offer_delete' offer.id %}">
                 {% csrf_token %}
-                <button class="delete-offer" type="submit">Delete</button>
+                <button style="color: white; background-color: #db2b2b; border: none; font-size: 28px; padding: 8px 33px 8px 33px; border-radius: 10px;" class="delete-offer" type="submit">Delete</button>
             </form>
             {% endif %}
         </div>

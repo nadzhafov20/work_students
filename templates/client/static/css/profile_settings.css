@@ -1,0 +1,48 @@
+.custom-edit-input__active{
+    display: inline-block;
+    padding: 10px 20px 10px 20px;
+    font-weight: 500;
+    font-size: 26px;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    background-color: #5ba7d3;
+}
+.custom-edit-input__active::placeholder {
+    color: white;
+}
+.custom-edit-input__active:focus {
+    outline: none;
+    border: none;
+}
+
+.custom-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.custom-checkbox:hover {
+    background-color: #f0f0f0;
+}
+
+.custom-checkbox.checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.custom-checkbox.checked::after {
+    content: '\2713';
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    line-height: 20px;
+}
+
+.form-edu-control{
+    
+}

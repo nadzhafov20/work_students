@@ -56,7 +56,7 @@ def close_account(request):
         logout(request)
         return redirect('login')
     else:
-        return redirect('student_profile')
+        return redirect('login')
 
 def register_student(request):
     if request.method == 'POST':
