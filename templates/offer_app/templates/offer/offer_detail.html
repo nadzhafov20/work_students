@@ -106,12 +106,13 @@
                         {% endif %}
                         {% if user.role == 'client' %}
                         <div class="block-rate__client-control">
-                            {% if offer.user_student %}
-                            <a class="select-rate" href="{% url 'offer_view' offer.id %}">Go to view</a>
-                            {% else %}
+                            {% if offer.user_student and rate.student == offer.user_student %}
+                            <a style="background-color: #69b3df;padding: 7px 15px 7px 15px;border-radius: 50px;color: white;margin-left: 20px;" class="select-rate" href="{% url 'offer_view' offer.id %}">Go to view</a>
+                            {% endif %}
+                            {% if not offer.user_student %}
                             <form method="post" action="{% url 'select_rate' rate.id %}">
                                 {% csrf_token %}
-                                <button type="submit" class="select-btn select-rate">Select</button>
+                                <button style="color: white; font-size: 18px; padding: 8px 23px 8px 23px; border: none; border-radius: 20px; background-color: #40a547;" type="submit" class="select-btn select-rate">Select</button>
                             </form>
                             {% endif %}
                         </div>
