@@ -7,7 +7,6 @@
         {% display_header_ad 'header' %}
         <div class="header__inner">
             <div class="start">
-                
                 <a href="/" class="header__logo">
                     <img src="{% static 'img/logo.png' %}" width="89" height="89" alt="logo">
                 </a>
@@ -50,7 +49,7 @@
                             </a>
                         </li>
                         <li class="header__action-item">
-                            <a href="#!" class="header__action-link">
+                            <a href="{% url 'student_notifications' %}" class="header__action-link">
                                 <img src="{% static 'img/ic-3.svg' %}" alt="">
                             </a>
                         </li>

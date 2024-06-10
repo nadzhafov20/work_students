@@ -16,33 +16,9 @@
     border: none;
 }
 
-.custom-checkbox {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #999;
-    border-radius: 4px;
-    background-color: #fff;
-    cursor: pointer;
-}
 
-.custom-checkbox:hover {
-    background-color: #f0f0f0;
-}
 
-.custom-checkbox.checked {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.custom-checkbox.checked::after {
-    content: '\2713';
-    font-size: 14px;
-    color: #fff;
-    text-align: center;
-    line-height: 20px;
-}
-
-.form-edu-control{
-    
+input[type="checkbox"].custom-checkbox#personal-image-clear_id {
+    background-color: red;
+    font-size: 30px;
 }

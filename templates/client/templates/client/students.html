@@ -98,9 +98,15 @@
 
                             <div class="info__text-action">
                                 <button>
-                                    <a class="btn-reset" href="{% url 'student_public_view' username=student.username %}" >View portfolio</a>
+                                    <a class="btn-reset" href="{% url 'student_public_view' username=student.username %}">
+                                        View portfolio
+                                    </a>
                                 </button>
-                                <button class="btn-reset">Offer a job</button>
+                                <button class="btn-reset">
+                                    <a class="btn-reset" href="{% url 'client_offer_job' username=student.username %}">
+                                        Offer a job
+                                    </a>
+                                </button>
                             </div>
                         </div>
                     </div>

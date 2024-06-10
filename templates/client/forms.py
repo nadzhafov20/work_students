@@ -1,6 +1,7 @@
 from django import forms
 from main.models import MyUser
 from offer_app.models import OffersModel, TagOfferModel
+from .models import OfferJobModel
 from django.contrib.auth.hashers import make_password
 
 
@@ -23,7 +24,25 @@ class OffersModelForm(forms.ModelForm):
             offer.save()
             self.save_m2m()
         return offer
-    
+
+class OfferJobForm(forms.ModelForm):
+    class Meta:
+        model = OfferJobModel
+        fields = ('text', 'amount', 'contacts')
+        widgets = {
+            'text': forms.Textarea(attrs={'class': 'ofjb-text-form'}),
+            'amount': forms.NumberInput(attrs={'class': 'ofjb-amount-form'}),
+            'contacts': forms.TextInput(attrs={'class': 'ofjb-contacts-form'}),
+        }
+    def save(self, commit=True, user=None, student=None):
+        offer = super(OfferJobForm, self).save(commit=False)
+        if user is not None:
+            offer.user_client = user
+            offer.user_student = student
+        if commit:
+            offer.save()
+            self.save_m2m()
+        return offer
 
 class PersonalinfoSettingForm(forms.ModelForm):
     new_password = forms.CharField(

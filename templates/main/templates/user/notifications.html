@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Notifications
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<style>
+.notifications-container{
+    padding: 0 40px;
+}
+.notification{
+    display: flex;
+    flex-direction: column;
+    background-color: #3F89B4;
+    padding: 26px 32px;
+    border-radius: 22px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    margin-bottom: 32px;
+    max-height: 100px;
+    overflow: hidden;
+}
+.notification .nt-datetime{
+    margin-top: 20px;
+    font-size: 18;
+    color: white;
+}
+.notification .nt-message{
+    font-size: 23px;
+    color: white;
+}
+
+.notifications__notfound{
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+}
+</style>
+
+<section class="notifications-container">
+    <div class="notifications">
+        {% if notifications %}
+        {% for nt in notifications %}
+        <div class="notification">
+            <a href="{% url 'student_notification_view' id=nt.id %}">
+                <div>
+
+                </div>
+                <div class="nt-message">
+                    {{ nt.message }}
+                </div>
+                <div class="nt-datetime">
+                    {{ nt.date_add }}
+                </div>
+                <div class="nt-status">
+                    {% if nt.is_viewed %}
+    
+                    {% else %}
+                    <div style="position: absolute; right: 5px; top: 10px; width: 20px; height: 20px; border-radius: 50px; background-color: #71eb71;"></div>
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <span class="notifications__notfound">Not found</span>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

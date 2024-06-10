@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Notification
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<style>
+    .notification-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.notification-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.notification-message {
+    font-size: 28px;
+    color: #57aec7;
+    background-color: white;
+    padding: 5px;
+    border-radius: 50px;
+}
+
+.client-info {
+    color: white;
+    font-size: 20px;
+}
+
+.job-offer-text {
+    font-size: 25px;
+    color: white;
+    margin-top: 20px;
+}
+
+.contacts-info-container {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #3f96af;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.contacts-info-title {
+    color: white;
+    font-size: 27px;
+    font-weight: 600;
+}
+
+.contacts-info {
+    margin-top: 10px;
+    font-size: 21px;
+    color: white;
+}
+
+.date-info {
+    margin-top: 20px;
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+}
+
+.buttons-container {
+    margin-top: 20px;
+}
+
+.confirm-button, .refuse-button {
+    background-color: green;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    margin-right: 10px;
+}
+
+.refuse-button {
+    background-color: rgb(128, 19, 0);
+}
+.job-offer-status{
+    background-color: white;
+    color: #3f96af;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 20px;
+}
+</style>
+
+<script>
+    function refreshPage() {
+        window.location.reload();
+    }
+</script>
+
+<section>
+    <div class="container">
+        <div class="notification-container">
+            <div class="notification-header">
+                <div class="notification-message">{{ nt.message }}</div>
+                <div class="client-info">{{ job_offer.user_client.first_name }} {{ job_offer.user_client.last_name }}</div>
+            </div>
+            <div class="job-offer-text">{{ job_offer.text }}</div>
+            <div class="contacts-info-container">
+                <h2 class="contacts-info-title">Contacts info</h2>
+                <div class="contacts-info">{{ job_offer.contacts }}</div>
+            </div>
+        </div>
+        <div class="date-info">{{ job_offer.date_add }}</div>
+        <div class="buttons-container">
+            {% if job_offer.status == 'awaits' %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="buttons-container">
+                    <button type="submit" name="confirmed" class="confirm-button">Confirm</button>
+                    <button type="submit" name="rejected" class="refuse-button">Refuse</button>
+                </div>
+            </form>
+            {% elif job_offer.status == 'rejected' %}
+            <div class="job-offer-status">
+                You refused a job
+            </div>
+            {% elif job_offer.status == 'confirmed' %}
+            <div class="job-offer-status">
+                You agreed to the terms of work
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

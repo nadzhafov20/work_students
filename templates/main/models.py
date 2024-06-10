@@ -142,3 +142,51 @@ class MyUser(AbstractUser):
                 counter += 1
             self.username = unique_username
         super().save(*args, **kwargs)
+
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
+class NotificationsModel(models.Model):
+    user_id = models.ForeignKey(
+        MyUser,
+        on_delete=models.CASCADE,
+    )
+    message = models.TextField(
+        max_length=500,
+        verbose_name='Notification'
+    )
+    link = models.URLField(
+        max_length=200,
+        null=True,
+        blank=True,
+        verbose_name='Link'
+    )
+    date_add = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Date add'
+    )
+    is_viewed = models.BooleanField(
+        default=False,
+        verbose_name='Viewed status'
+    )
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    object_id = models.PositiveIntegerField(
+        null=True,
+        blank=True
+    )
+    content_object = GenericForeignKey(
+        'content_type',
+        'object_id'
+    )
+
+    def __str__(self):
+        return str(self.date_add)
+
+    class Meta:
+        verbose_name = 'Notification'
+        verbose_name_plural = 'Notifications'

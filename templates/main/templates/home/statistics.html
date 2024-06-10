@@ -31,11 +31,9 @@
             <div id="technology-chart"></div>
         </div>
         <script>
-            // Получаем данные из контекста
             var qualifications = {{ qualifications|safe }};
             var counts = {{ counts|safe }};
         
-            // Настройка графика
             var data = [{
                 x: qualifications,
                 y: counts,
@@ -90,7 +88,7 @@
             };
         
             var config = {
-                staticPlot: true // Отключаем возможность зуммирования и панорамирования
+                staticPlot: true
             };
         
             Plotly.newPlot('technology-chart', data, layout, config);

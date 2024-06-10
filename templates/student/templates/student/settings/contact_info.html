@@ -10,30 +10,15 @@
     <h2 class="account">Account</h2>
 
     <div class="offer__user">
-        {% if user.image %}
-        <img src="{{ user.image.url }}">
-        {% else %}
-            <img src="{% static 'img/user-profile.svg' %}" alt="">
-        {% endif %}
-        
+        <div class="user-av">
+            {% if user.image %}
+            <img src="{{ user.image.url }}">
+            {% else %}
+                <img src="{% static 'img/user-profile.svg' %}" alt="">
+            {% endif %}
+        </div>
         {{ personal_info_form.image }}
     </div>
-
-    <style>
-        input[type="file"]::-webkit-file-upload-button {
-            background-color: #5396bd;
-            color: #fff;
-            padding: 5px 10px;
-            border: none; 
-            border-radius: 20px; 
-            cursor: pointer;
-        }
-        
-        input[type="file"]::-webkit-file-upload-button:hover {
-            background-color: #4788ad;
-        }
-    </style>
-
     <ul class="user__setting">
         <li class="user__setting-item">
             <h2>User ID</h2>

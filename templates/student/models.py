@@ -91,8 +91,8 @@ class StudentCalendarModel(models.Model):
     from main.models import MyUser
 
     STATUS = [
-        ('red', 'Сильно занят'),
-        ('yellow', 'Немного занят'),
+        ('red', '🔴'),
+        ('yellow', '🟡'),
     ]
     
     user = models.ForeignKey(

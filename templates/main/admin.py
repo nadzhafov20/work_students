@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import MyUser
+from .models import MyUser, NotificationsModel
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.contrib.admin import SimpleListFilter
+from client.models import OfferJobModel
 
 from student.models import EducationStudentModel, LanguageStudentModel, PortfolioStudentModel, StudentCalendarModel
 from offer_app.models import OffersModel
@@ -20,6 +21,10 @@ class LanguageStudentInline(admin.TabularInline):
     extra = 0
 
     def has_add_permission(self, request, obj=None):
+        return False
+    def has_change_permission(self, request, obj=None):
+        return False
+    def has_delete_permission(self, request, obj=None):
         return False
     
 class PortfolioStudentInline(admin.StackedInline):
@@ -47,6 +52,38 @@ class OfferClientInline(admin.StackedInline):
     extra = 0
     filter_vertical = ('tags',)
     fk_name = 'user_client' 
+
+class NotificationsInline(admin.StackedInline):
+    model = NotificationsModel
+    extra = 0
+    readonly_fields = ('message', 'link',)
+
+    def has_change_permission(self, request, obj=None):
+        return False
+    
+    def has_add_permission(self, request, obj=None):
+        return False
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    def get_fields(self, request, obj=None):
+        return ['message', 'link']
+
+class OfferJobClientInline(admin.StackedInline):
+    model = OfferJobModel
+    extra = 0
+    fk_name = 'user_client' 
+
+    def has_change_permission(self, request, obj=None):
+        return False
+    
+    def has_add_permission(self, request, obj=None):
+        return False
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
 
 class OfferStudentInline(admin.StackedInline):
     model = OffersModel
@@ -132,10 +169,10 @@ class MyUserAdmin(UserAdmin):
 
     def get_inline_instances(self, request, obj=None):
         if obj and obj.role == 'client':
-            inlines = [OfferClientInline]
+            inlines = [OfferClientInline, OfferJobClientInline, NotificationsInline]
             return [inline(self.model, self.admin_site) for inline in inlines]
         elif obj and obj.role == 'student':
-            inlines = [OfferStudentInline, EducationStudentInline, PortfolioStudentInline, LanguageStudentInline, StudentCalendarInline]
+            inlines = [OfferStudentInline, EducationStudentInline, PortfolioStudentInline, LanguageStudentInline, NotificationsInline, StudentCalendarInline]
             return [inline(self.model, self.admin_site) for inline in inlines]
         return []
 

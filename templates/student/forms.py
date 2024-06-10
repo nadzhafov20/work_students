@@ -2,6 +2,7 @@ from django import forms
 from main.models import MyUser
 from .models import PortfolioStudentModel, EducationStudentModel, LanguageStudentModel, SetQualificationStudentModel
 from django.contrib.auth.hashers import make_password
+from django.forms.widgets import ClearableFileInput
 
 
 class StudentRegistrationForm(forms.ModelForm):
@@ -29,6 +30,30 @@ class LanguageStudentForm(forms.ModelForm):
     class Meta:
         model = LanguageStudentModel
         fields = ['language', 'level']
+        #widgets = {
+        #    'language':
+        #    'level':
+        #}
+
+class CustomClearableFileInput(ClearableFileInput):
+    template_name = 'custom_clearable_file_input.html'
+
+
+    def __init__(self, *args, **kwargs):
+        self.id = kwargs.pop('id', None)
+        super().__init__(*args, **kwargs)
+        self.attrs.update({'class': 'custom-edit-input__active'})
+    
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget'].update({
+            'id': self.id,
+        })
+        print(self.id)
+        return context
+    
+    def use_template(self, name=None):
+        return name == 'template_with_initial' or super().use_template(name)
 
 class PersonalinfoSettingForm(forms.ModelForm):
     education_formset = forms.inlineformset_factory(
@@ -50,12 +75,12 @@ class PersonalinfoSettingForm(forms.ModelForm):
         required=False,
         widget=forms.PasswordInput(attrs={'class': 'custom-edit-input__active'})
     )
-
     class Meta:
         model = MyUser
         fields = ('qualification', 'hours_per_week', 'price_hour', 'address', 'video_introduction', 'time_zone', 'about', 'skils', 'image', 'new_password')
         widgets = {
-            'skils': forms.CheckboxSelectMultiple()
+            'skils': forms.CheckboxSelectMultiple(),
+            'image': CustomClearableFileInput(attrs={'class': 'custom-checkbox'})
         }
 
     def __init__(self, *args, **kwargs):
@@ -65,7 +90,7 @@ class PersonalinfoSettingForm(forms.ModelForm):
         
         for field_name in self.fields:
             self.fields[field_name].widget.attrs['class'] = 'custom-edit-input__active'
-    
+
     def save(self, commit=True):
         user = super(PersonalinfoSettingForm, self).save(commit=False)
         new_password = self.cleaned_data.get('new_password')
@@ -75,6 +100,3 @@ class PersonalinfoSettingForm(forms.ModelForm):
             user.save()
 
         return user
-    
-        def get_education_formset(self, *args, **kwargs):
-            return self.education_formset(*args, **kwargs)

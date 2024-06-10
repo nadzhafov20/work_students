@@ -4,12 +4,12 @@ from django.contrib.auth import logout
 from offer_app.models import OffersModel
 from student.models import EducationStudentModel, PortfolioStudentModel, SetQualificationStudentModel, SetStudentSkilsModel
 from datetime import datetime
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 import datetime
 import json
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from main.models import MyUser
+from main.models import MyUser, NotificationsModel
 from offer_app.models import OffersModel
 from .forms import PersonalinfoSettingForm, EducationStudentForm, LanguageStudentForm
 from django.forms import inlineformset_factory
@@ -20,11 +20,12 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from .utils.calendar_utils import (update_calendar_entries,get_month_calendar_data,get_user_events,format_dates,annotate_calendar_with_status)
 from .utils.total_percent import calculate_total_percent
+from django.views.decorators.csrf import csrf_exempt
+from client.models import OfferJobModel
 
-
-@user_is_authenticated
-@email_verified_required
-@role_required('student')
+#@user_is_authenticated
+#@email_verified_required
+#@role_required('student')
 def profile_settings(request):
     user = request.user
     EducationFormSet = inlineformset_factory(MyUser, EducationStudentModel, form=EducationStudentForm, extra=1, can_delete=True)
@@ -40,11 +41,12 @@ def profile_settings(request):
             education_formset.save()
             language_formset.save()
 
+            print(data)
             return redirect('student_profile_settings')
-
         print(data)
+
+        return HttpResponse("Unhandled request method")
     else:
-        qualifications = SetQualificationStudentModel.objects.all()
         personal_info_form = PersonalinfoSettingForm(instance=user, prefix='personal')
         education_formset = EducationFormSet(instance=user, prefix='education')
         language_formset = LanguageStudentFormSet(instance=user, prefix='language')
@@ -54,6 +56,7 @@ def profile_settings(request):
             'language_formset': language_formset,
             'user': user
         }
+
         return render(request, 'student/profile_settings.html', context)
 
 @user_is_authenticated
@@ -172,7 +175,6 @@ def public_view(request, username):
     portfolio = PortfolioStudentModel.objects.filter(user=student.id)
     educations = EducationStudentModel.objects.filter(user=student)
     languages = LanguageStudentModel.objects.filter(user=student)
-    print(portfolio)
     context = {
         'student':student,
         'portfolio':portfolio,
@@ -181,3 +183,71 @@ def public_view(request, username):
         'languages':languages,
         }
     return render(request, 'student/public_view.html', context)
+
+@user_is_authenticated
+@email_verified_required
+@role_required('student')
+def notifications_views(request):
+    user = request.user
+    notifications = NotificationsModel.objects.filter(user_id=user)
+    context = {
+        'notifications':notifications,
+    }
+    return render(request, 'user/notifications.html', context)
+
+@user_is_authenticated
+@email_verified_required
+@role_required('student')
+def notification_view(request, id):
+    user = request.user
+    nt = NotificationsModel.objects.get(id=id, user_id=user.id)
+    job_offer = None
+    if nt.content_type == None:
+        return redirect('student_notifications') 
+    if nt.content_type.model_class() == OfferJobModel:
+        job_offer = nt.content_object
+
+    if request.method == 'POST':
+        if 'confirmed' in request.POST:
+            print('confirmed')
+            job_offer.status = 'confirmed'
+            job_offer.save()
+        elif 'rejected' in request.POST:
+            print('rejected')
+            job_offer.status = 'rejected'
+            job_offer.save()
+        return redirect('student_notifications')      
+
+    context = {
+        'user': user,
+        'nt': nt,
+        'job_offer': job_offer,
+    }
+    return render(request, 'student/notification_view.html', context)
+
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse, HttpResponseNotAllowed
+
+
+@user_is_authenticated
+@email_verified_required
+@csrf_exempt
+def delete_photo(request):
+    if request.method == 'DELETE':
+        user = request.user
+        instance = get_object_or_404(MyUser, id=user.id)
+        instance.image.delete()
+        instance.save()
+        return JsonResponse({'message': 'Photo deleted successfully'})
+    return HttpResponseNotAllowed(['DELETE'])
+
+def delete_video_introduction(request):
+    if request.method == 'DELETE':
+        user = request.user
+        instance = get_object_or_404(MyUser, id=user.id)
+        instance.video_introduction.delete()
+        instance.save()
+        return JsonResponse({'message': 'Video deleted successfully'})
+    return HttpResponseNotAllowed(['DELETE'])
+
+

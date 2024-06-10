@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Offer a job for {{ student.username }}
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block header %}
+    {% include 'home/header.html' %}
+{% endblock %}
+
+{% block content %}
+<style>
+.ofjb-container{
+    width: 80%;
+}
+.ofjb-text-form, .ofjb-amount-form, .ofjb-contacts-form{
+    background-color: #4d9ece;
+    border: 1px solid white;
+    border-radius: 20px;
+    font-size: 26px;
+    color: white;
+    width: 100%;
+    padding: 17px;
+    margin-bottom: 10px;
+}
+.text-label-form{
+    font-size: 24px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+</style>
+<script>
+    
+</script>
+
+<section>
+    <div class="container">
+        <h2 style="color: white; font-size: 23px;">Enter the details you want to offer the student for work</h2>
+        <div class="ofjb-container">
+            <div style="margin-top: 20px; display: flex; justify-content: center; width: 600px; background-color: white; color: #4d9ece; padding: 10px 25px 10px 25px; border-radius: 50px; font-size: 18px; font-weight: 600;">
+                Offer a job: 
+                {{ student.username }}
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <ul>
+                    <li>
+                        <h1 class="text-label-form">Text</h1>
+                        <span>
+                            {{ form.text }}
+                        </span>
+                    </li>
+                    <li>
+                        <h1 class="text-label-form">Amount</h1>
+                        <span>
+                            {{ form.amount }}
+                        </span>
+                    </li>
+                    <li>
+                        <h1 class="text-label-form">Contacts</h1>
+                        <span>
+                            {{ form.contacts }}
+                        </span>
+                    </li>
+                </ul>
+                <button type="submit" style="background-color: green; padding: 10px 25px 10px 25px; font-size: 18px; border-radius: 20px; color: white; border: none;">Submit</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

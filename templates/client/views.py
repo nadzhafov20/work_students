@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from main.models import MyUser
+from main.models import MyUser, NotificationsModel
 from offer_app.models import OffersModel
 from student.models import SetQualificationStudentModel, SetStudentSkilsModel, StudentCalendarModel
 from datetime import datetime
-from .forms import OffersModelForm, PersonalinfoSettingForm
+
+from client.models import OfferJobModel
+from .forms import OffersModelForm, PersonalinfoSettingForm, OfferJobForm
 from utils.decorators import user_is_authenticated, email_verified_required, role_required
 
 
@@ -86,3 +88,34 @@ def add_offer(request):
         user = request.user
         form = OffersModelForm()
         return render(request, 'client/add_offer.html', {'form':form})
+
+from django.contrib.contenttypes.models import ContentType
+
+@user_is_authenticated
+@email_verified_required
+@role_required('client')
+def offer_job(request, username):
+    user = request.user
+    student = MyUser.objects.get(username=username)
+
+    if request.method == 'POST':
+        form = OfferJobForm(request.POST)
+        if form.is_valid():
+            offer_job_instance = form.save(commit=True, user=user, student=student)
+            message = f'Client {user.first_name} {user.last_name} offered you a job'
+            content_type = ContentType.objects.get_for_model(OfferJobModel)
+            nt = NotificationsModel.objects.create(
+                user_id=student,
+                message=message,
+                object_id=offer_job_instance.id,
+                content_type=content_type
+            )
+            return redirect('client_profile')
+    else:
+        form = OfferJobForm()
+        context = {
+            'form': form,
+            'student': student,
+            'user': user
+        }
+        return render(request, 'client/offer_job.html', context)
